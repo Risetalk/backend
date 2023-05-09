@@ -31,7 +31,8 @@ const course = sequelize.define( "course",
         },
     },
         {
-            timestamps: false
+            timestamps: false,
+            freezeTableName: true
         }
 );
 
