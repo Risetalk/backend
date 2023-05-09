@@ -1,5 +1,5 @@
 const {Sequelize, DataTypes} = require("sequelize")
-const sequelize = require("./index.js")
+const sequelize = require("../")
 
 const video = sequelize.define(
     {
@@ -25,7 +25,7 @@ const video = sequelize.define(
         timestamps: false,
         freezeTableName: true
     }
-    
+
 )
 
 module.exports = video;
