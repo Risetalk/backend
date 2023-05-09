@@ -22,3 +22,5 @@ const Comment = sequelize.define("comment", {
     freezeTableName: true
   }
 );
+
+module.exports = Comment;
