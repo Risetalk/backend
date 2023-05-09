@@ -41,7 +41,8 @@ const PaymentMethod = sequelize.define("paymentMethod", {
   }
 }
 , {
-    timestamps: false
+    timestamps: false,
+    freezeTableName: true
 })
 
 module.exports = PaymentMethod;
