@@ -1,20 +1,20 @@
-const sequelize = require("./index.js")
-const {Sequelize, DataTypes} = require("sequelize");
+const sequelize = require("../index")
+const { DataTypes } = require("sequelize");
 
-const course = sequelize.define( "course", 
-{
-    
+const Course = sequelize.define("course",
+    {
+
         id: {
-          type: DataTypes.UUID,
-          defaultValue: Sequelize.UUIDV4,
-          primaryKey: true,
-          allowNull: false,
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
+            primaryKey: true,
+            allowNull: false,
         },
 
         title: {
             type: DataTypes.STRING(50),
             allowNull: false,
-            
+
         },
         description: {
             type: DataTypes.TEXT,
@@ -23,17 +23,17 @@ const course = sequelize.define( "course",
         background_image: {
             type: DataTypes.STRING(50),
             allowNull: false,
-           
+
         },
         released_date: {
             type: DataTypes.DATE,
             defaultValue: DataTypes.NOW
         },
     },
-        {
-            timestamps: false,
-            freezeTableName: true
-        }
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
 );
 
-module.exports = course;
+module.exports = Course;
