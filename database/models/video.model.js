@@ -1,5 +1,5 @@
 const {Sequelize, DataTypes} = require("sequelize")
-const sequelize = require("..")
+const sequelize = require("../")
 
 const video = sequelize.define("video", {
         id: {
