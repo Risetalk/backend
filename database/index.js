@@ -19,11 +19,11 @@ if (DEBUG === "true") {
         dialect: PGDIALECT,
         port: PGPORT,
         // ! Connecting with CloudDatabase
-        dialectOptions: {
-          ssl: {
-            rejectUnauthorized: false,
-          },
-        },
+        // dialectOptions: {
+        //   ssl: {
+        //     rejectUnauthorized: false,
+        //   },
+        // },
         logging: false,
     });
     module.exports = sequelize;
