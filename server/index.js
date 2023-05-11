@@ -3,7 +3,7 @@ const sequelize = require("../database/index");
 
 require("../database/models/relationships");
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PGPORT || 3001;
 
 function main() {
     app.listen(PORT, async () => {
