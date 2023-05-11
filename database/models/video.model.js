@@ -1,8 +1,7 @@
 const {Sequelize, DataTypes} = require("sequelize")
-const sequelize = require("../")
+const sequelize = require("..")
 
-const video = sequelize.define(
-    {
+const video = sequelize.define("video", {
         id: {
             type: DataTypes.UUID,
             primaryKey: true,
@@ -26,6 +25,6 @@ const video = sequelize.define(
         freezeTableName: true
     }
 
-)
+);
 
 module.exports = video;
