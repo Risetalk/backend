@@ -1,8 +1,13 @@
 const { Router } = require("express");
-const GetByNameCourse = require("../controllers/course.controller");
 
+const routesCourse = require("../controllers/course.controller");
+const routesVideo = require("../controllers/video.controller")
 const routes = Router();
 
-routes.get("/course/:id/videos", GetByNameCourse);
+routes.use("/course", routesCourse)
+routes.use("/video", routesVideo)
+routes.get("/prueba", (req, res) => {
+    res.status(200).send("Paso la prueba");
+});
 
 module.exports = routes;

@@ -1,26 +1,27 @@
-const Course = require("../../../database/models/Course.model");
-const Video = require("../../../database/models/video.model");
 
-// enpoint para buscas course por id
-const GetByNameCourse = async(req, res) =>  {
-    const {id } = req.params;
+const Course = require("../../../database/models/Course.model")
+const {Router} = require("express")
+
+const routesCourse = Router();
+
+
+
+routesCourse.post("/", async (req,res)=>{
     try {
-        const course  = await Course.findByPk(id, {
-            include: [{
-                model: Video,
-                attributes: [],
-                through: {
-                    attributes: []
-                }
-            }]
-        });
-        if(!course) return res.status(404).json({message: "Course not found"})
-        res.status(200).json(course.video);
+     
+        const {title, description, background_image, released_date, price, videos} = req.body
+        const course = await Course.findOrCreate({where: {title, description, background_image, released_date, price}})
+           
+               
+        videos.map(async (id)=>{
+            await Course.addVideo(id)
+        })
+        
+        res.status(200).json(course)
     } catch (error) {
-        res.status(404).json({error: error}.message);
+        res.status(404).json(error)
     }
-
+    
 }
-
-
-module.exports = GetByNameCourse;
+)
+module.exports = routesCourse;
