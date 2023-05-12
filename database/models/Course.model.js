@@ -14,21 +14,29 @@ const Course = sequelize.define("course",
         title: {
             type: DataTypes.STRING(50),
             allowNull: false,
+            unique: true,
 
         },
         description: {
             type: DataTypes.TEXT,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         background_image: {
             type: DataTypes.STRING(50),
             allowNull: false,
-
+            unique: true
+        },
+        price:{
+            type: DataTypes.STRING,
+            allowNull: false,
+            
         },
         released_date: {
             type: DataTypes.DATE,
             defaultValue: DataTypes.NOW
         },
+
     },
     {
         timestamps: false,

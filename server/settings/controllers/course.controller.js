@@ -8,17 +8,12 @@ const routesCourse = Router();
 routesCourse.post("/", async (req,res)=>{
     try {
      
-        const {title, description, background_image, released_date, videos} = req.body
-        const course = await Course.create({
-            title,
-            description,
-            background_image,
-            released_date
-        })
-
+        const {title, description, background_image, released_date, price, videos} = req.body
+        const course = await Course.findOrCreate({where: {title, description, background_image, released_date, price}})
+           
                
         videos.map(async (id)=>{
-            await course.addVideo(id)
+            await Course.addVideo(id)
         })
         
         res.status(200).json(course)
