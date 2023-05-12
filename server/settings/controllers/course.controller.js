@@ -1,3 +1,4 @@
+
 const Course = require("../../../database/models/Course.model")
 const {Router} = require("express")
 
