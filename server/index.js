@@ -5,6 +5,7 @@ require("../database/models/relationships");
 
 const PORT = process.env.PGPORT || 3001;
 
+
 function main() {
     app.listen(PORT, async () => {
         await sequelize.sync()
