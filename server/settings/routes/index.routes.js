@@ -1,23 +1,25 @@
+// Third Party Dependencies.
 const { Router } = require("express");
 
-const routesCourse = require("../controllers/course.controllers");
-const routesVideo = require("../controllers/video.controllers");
-const routesUser=require("../controllers/user.controllers");
-const routesPost=require("../controllers/post.controllers");
-const routesPaymentMethod=require("../controllers/paymentMethod.controllers");
+// Local Dependencies.
+const courseRoutes = require("./course.routes");
+const videoRoutes = require("./video.routes");
+const userRoutes = require("./user.routes");
+const postRoutes = require("./post.routes");
+const paymentMethodRoutes = require("./paymentMethod.routes");
 
-
+// Router Instance.
 const routes = Router();
 
-routes.use("/courses", routesCourse);
-routes.use("/video", routesVideo);
-routes.use("/post",routesPost);
-routes.use("/user",routesUser);
-routes.use("/payment",routesPaymentMethod);
+routes.use("/courses", courseRoutes);
+routes.use("/video", videoRoutes);
+routes.use("/post",postRoutes);
+routes.use("/user",userRoutes);
+routes.use("/payment",paymentMethodRoutes);
 
 
-routes.get("/prueba", (req, res) => {
-    res.status(200).send("Paso la prueba");
+routes.get("/docs", (req, res) => {
+    res.status(200).send("Paso ruta para Docs");
 });
 
 module.exports = routes;
