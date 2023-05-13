@@ -4,19 +4,22 @@ const Post = require("./Post.model");
 const Comment = require("./Comment.model");
 const PaymentMethod = require("./PaymentMethod.model");
 const Video = require("./video.model");
-
+const CommentCourse=require("./CommentCourse.model");
 
 User.belongsToMany(Course,{through:"User_Course"});
 Course.belongsToMany(User, { through: "User_Course" });
-User.hasMany(Comment);
-Comment.belongsTo(User);
+
+Course.hasMany(CommentCourse);
+CommentCourse.belongsTo(Course);
+User.hasMany(CommentCourse);
+CommentCourse.belongsTo(User);
 User.hasMany(Post);
 Post.belongsTo(User);
 Post.hasMany(Comment);
 Comment.belongsTo(Post);
 User.hasMany(PaymentMethod);
 PaymentMethod.belongsTo(User);
-Course.belongsToMany(Video, {through: "Course_Video"});
+Course.hasMany(Video);
 Video.belongsToMany(Course, {through: "Course_Video"});
 
 
