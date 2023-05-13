@@ -34,8 +34,9 @@ User.hasMany(PaymentMethod);
 PaymentMethod.belongsTo(User);
 
 // Course to Video.
-Course.hasMany(Video);
-Video.belongsToMany(Course, { through: "course_Video" });
+
+Course.hasMany(Video, { foreignKey: 'courseId' });
+Video.belongsTo(Course, { foreignKey: 'courseId' });
 
 module.exports = {
   User,
