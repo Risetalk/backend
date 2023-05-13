@@ -1,29 +1,30 @@
 // Third Party Dependencies.
-const { Sequelize, DataTypes } = require("sequelize");
+const { DataTypes } = require("sequelize");
 
 // Local Dependencies.
 const sequelize = require("../");
 
-// Videos Model.
-const Video = sequelize.define(
-  "video",
+// Posts Model.
+const Post = sequelize.define(
+  "post",
   {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
+      allowNull: false,
     },
     title: {
       type: DataTypes.STRING(50),
-      allownull: false,
+      allowNull: false,
     },
     description: {
       type: DataTypes.TEXT,
-      allownull: false,
+      allowNull: false,
     },
-    url_video: {
+    background_image: {
       type: DataTypes.STRING(50),
-      allownull: false,
+      allowNull: false,
     },
   },
   {
@@ -32,4 +33,4 @@ const Video = sequelize.define(
   }
 );
 
-module.exports = Video;
+module.exports = Post;

@@ -133,7 +133,8 @@ dist
 # Serverless Webpack directories
 .webpack/
 
-# Optional stylelint cache
+# Test Database.
+**/database.sqlite
 
 # SvelteKit build / generate output
 .svelte-kit

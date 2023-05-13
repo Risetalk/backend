@@ -1,16 +1,13 @@
+// Third Party Dependencies.
+const { Router } = require("express");
 
+// Local Dependencies.
+const postCourses = require("../controllers/course/course.controllers");
 
-const { Router } = require("express")
-
-const postCourses=require("../controllers/Courses/postCourses.controllers");
-
-
+// Router Instance.
 const routesCourse = Router();
 
-
-
-routesCourse.post("/", postCourses )
-
-
+// Post Course Route.
+routesCourse.post("/", postCourses);
 
 module.exports = routesCourse;

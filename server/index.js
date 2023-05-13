@@ -1,17 +1,23 @@
-const app = require("./settings/index");
-const sequelize = require("../database/index");
+// Local Dependencies.
+const app = require("./settings/");
+const sequelize = require("../database/");
 
+// Models Import.
 require("../database/models/relationships");
 
+// Default Port.
 const PORT = 3001;
 
-//process.env.PGPORT ||
-
+// Main Function of the Server.
 function main() {
-    app.listen(PORT, async () => {
-        await sequelize.sync({force:false})
-        console.log(`server listening on port: ${PORT}`);
-    })
+  // Put the Server to Listen.
+  app.listen(PORT, async () => {
+    // Data Syncronization.
+    await sequelize.sync();
+    // Listening Verify.
+    console.log(`server listening on port: ${PORT}`);
+  });
 }
 
+// Execution Server.
 main();

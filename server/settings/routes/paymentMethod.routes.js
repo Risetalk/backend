@@ -1,20 +1,12 @@
-const { Router } = require("express")
+// Third Party Dependencies.
+const { Router } = require("express");
 
-const routesPaymentMethod = Router();
+// Local Dependencies.
+const PaymentMethodPost = require("../controllers/patmentMethod/paymentMethod.controllers")
 
+// Router Instance.
+const paymentMethodRoutes = Router();
 
+paymentMethodRoutes.post("/", PaymentMethodPost );
 
-routesPaymentMethod.post("/", async (req, res) => {
-    try {
-
-       res.send("Aqui todos las rutas");
-    } catch (error) {
-        res.status(404).json(error)
-    }
-
-}
-)
-
-
-
-module.exports = routesPaymentMethod;
+module.exports = paymentMethodRoutes;

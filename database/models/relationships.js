@@ -1,33 +1,48 @@
-const User = require("./User.model");
-const Course = require("./Course.model");
-const Post = require("./Post.model");
-const Comment = require("./Comment.model");
-const PaymentMethod = require("./PaymentMethod.model");
+// Local Dependencies ( Models Section )
+const User = require("./user.model");
+const Course = require("./course.model");
+const Post = require("./post.model");
+const PostComment = require("./postComment.model");
+const PaymentMethod = require("./paymentMethod.model");
 const Video = require("./video.model");
-const CommentCourse=require("./CommentCourse.model");
+const CourseComment = require("./courseComment.model");
 
-User.belongsToMany(Course,{through:"User_Course"});
-Course.belongsToMany(User, { through: "User_Course" });
+// Relation Ships.
 
-Course.hasMany(CommentCourse);
-CommentCourse.belongsTo(Course);
-User.hasMany(CommentCourse);
-CommentCourse.belongsTo(User);
+// User to Course.
+User.belongsToMany(Course, { through: "user_course" });
+Course.belongsToMany(User, { through: "user_course" });
+
+// Course to CourseComment.
+Course.hasMany(CourseComment);
+CourseComment.belongsTo(Course);
+
+// User to CourseComment.
+User.hasMany(CourseComment);
+CourseComment.belongsTo(User);
+
+// User to Post.
 User.hasMany(Post);
 Post.belongsTo(User);
-Post.hasMany(Comment);
-Comment.belongsTo(Post);
+
+// Post to PostComment.
+Post.hasMany(PostComment);
+PostComment.belongsTo(Post);
+
+// User to PaymentMethod.
 User.hasMany(PaymentMethod);
 PaymentMethod.belongsTo(User);
-Course.hasMany(Video);
-Video.belongsToMany(Course, {through: "Course_Video"});
 
+// Course to Video.
+Course.hasMany(Video);
+Video.belongsToMany(Course, { through: "course_Video" });
 
 module.exports = {
-    User,
-    Course,
-    Post,
-    Comment,
-    PaymentMethod,
-    Video
-}
+  User,
+  Course,
+  Post,
+  CourseComment,
+  PostComment,
+  PaymentMethod,
+  Video,
+};
