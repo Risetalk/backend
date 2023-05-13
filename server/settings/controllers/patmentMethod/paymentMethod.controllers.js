@@ -1,5 +1,3 @@
-
-
 // Payment Method Post.
 const PaymentMethodPost = async (req, res) => {
   try {
@@ -9,7 +7,4 @@ const PaymentMethodPost = async (req, res) => {
   }
 };
 
-
-module.exports ={
-    PaymentMethodPost
-}
+module.exports = PaymentMethodPost;
