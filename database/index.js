@@ -3,7 +3,11 @@ const { Sequelize } = require("sequelize");
 
 const { PGUSER, PGPASSWORD, PGHOST, PGDATABASE, PGDIALECT, DEBUG, PGPORT } = process.env;
 
+
+
 if (DEBUG === "true") {
+
+
     const sequelize = new Sequelize({
         dialect: "sqlite",
         storage: "./database.sqlite",

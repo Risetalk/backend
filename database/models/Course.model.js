@@ -14,18 +14,20 @@ const Course = sequelize.define("course",
         title: {
             type: DataTypes.STRING(50),
             allowNull: false,
-            unique: true,
-
         },
         description: {
             type: DataTypes.TEXT,
             allowNull: false,
-            unique: true
+            
         },
         background_image: {
             type: DataTypes.STRING(50),
             allowNull: false,
             unique: true
+        },
+        rating:{
+            type:DataTypes.INTEGER,
+            allowNull:false
         },
         price:{
             type: DataTypes.STRING,
@@ -34,12 +36,12 @@ const Course = sequelize.define("course",
         },
         released_date: {
             type: DataTypes.DATE,
-            defaultValue: DataTypes.NOW
+            allowNull:false
         },
 
     },
     {
-        timestamps: false,
+        timestamps: true,
         freezeTableName: true
     }
 );

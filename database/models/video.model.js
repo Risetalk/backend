@@ -21,7 +21,7 @@ const video = sequelize.define("video", {
         }
     },
     {
-        timestamps: false,
+        timestamps: true,
         freezeTableName: true
     }
 
