@@ -30,7 +30,7 @@ const postCourse = async (req, res) => {
     let bandera = false;
     console.log(userCourses.length);
     for (let i = 0; i < userCourses.length; i++) {
-      console.log("entro al for");
+      
       if (
         userCourses[i].dataValues.title.toLowerCase() === title.toLowerCase()
       ) {

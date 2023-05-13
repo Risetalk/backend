@@ -56,7 +56,6 @@ const User = sequelize.define(
       type: DataTypes.BOOLEAN,
       defaultValue: true,
       allowNull: false,
-      defaultValue: false,
     },
     about_me: {
       type: DataTypes.TEXT,

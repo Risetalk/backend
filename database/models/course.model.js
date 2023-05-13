@@ -25,7 +25,6 @@ const Course = sequelize.define(
     background_image: {
       type: DataTypes.STRING(50),
       allowNull: false,
-      unique: true,
     },
     released_date: {
       type: DataTypes.DATEONLY,

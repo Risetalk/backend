@@ -2,24 +2,9 @@ const { Router } = require("express");
 
 const videoRoutes = Router();
 
-videoRoutes.get("/", async (req, res) => {
-  try {
-    for (let objVideo of Videos) {
-      await video.findOrCreate({
-        where: {
-          title: objVideo.title,
-          description: objVideo.description,
-          url_video: objVideo.url_video,
-        },
-      });
-    }
+const postVideoController=require("../controllers/video/postVideo.controller");
 
-    const allVideos = await video.findAll();
 
-    res.status(200).json(allVideos);
-  } catch (error) {
-    res.json(error);
-  }
-});
+videoRoutes.post("/", postVideoController);
 
 module.exports = videoRoutes;
