@@ -30,13 +30,13 @@ const Course = sequelize.define("course",
             allowNull:false
         },
         price:{
-            type: DataTypes.STRING,
+            type: DataTypes.DECIMAL,
             allowNull: false,
             
         },
         released_date: {
-            type: DataTypes.DATE,
-            allowNull:false
+            type: DataTypes.DATEONLY,
+            allowNull:false,
         },
 
     },

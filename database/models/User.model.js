@@ -35,7 +35,7 @@ const User = sequelize.define(
             unique:true
         },
         date_birth: {
-            type: DataTypes.DATE,
+            type: DataTypes.DATEONLY,
             allowNull: false
         },
         is_tutor: {

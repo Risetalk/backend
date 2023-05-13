@@ -3,13 +3,13 @@ const sequelize = require("../database/index");
 
 require("../database/models/relationships");
 
-const PORT = process.env.PGPORT || 3001;
+const PORT = 3001;
 
-
+//process.env.PGPORT ||
 
 function main() {
     app.listen(PORT, async () => {
-        await sequelize.sync()
+        await sequelize.sync({force:false})
         console.log(`server listening on port: ${PORT}`);
     })
 }

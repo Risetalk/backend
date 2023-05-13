@@ -1,10 +1,10 @@
 const { Router } = require("express");
 
-const routesCourse = require("../controllers/course.controllers");
-const routesVideo = require("../controllers/video.controllers");
-const routesUser=require("../controllers/user.controllers");
-const routesPost=require("../controllers/post.controllers");
-const routesPaymentMethod=require("../controllers/paymentMethod.controllers");
+const routesCourse = require("./course.routes");
+const routesVideo = require("./video.routes");
+const routesUser = require("./user.routes");
+const routesPost = require("./post.routes");
+const routesPaymentMethod = require("./paymentMethod.routes");
 
 
 const routes = Router();
