@@ -2,13 +2,13 @@
 const { Router } = require("express");
 
 // Local Dependencies.
-const User = require("../../../database/models/User.model");
+const User = require("../../../database/models/user.model");
 
 // Router Instance.
 const userRoutes = Router();
 
-userRoutes.post("/", async (req, res) => {
-  //Esto es una sacha ruta
+userRoutes.post("/user", async (req, res) => {
+
   const {
     first_name,
     last_name,

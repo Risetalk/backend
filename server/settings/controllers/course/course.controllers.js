@@ -58,4 +58,4 @@ const postCourse = async (req, res) => {
   }
 };
 
-module.exports = postCourses;
+module.exports = postCourse;

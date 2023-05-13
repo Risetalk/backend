@@ -1,3 +1,6 @@
+const swaggerJsdoc = require("swagger-jsdoc")
+const swaggerUi = require("swagger-ui-express");
+
 // Third Party Dependencies.
 const { Router } = require("express");
 
@@ -17,9 +20,9 @@ routes.use("/post",postRoutes);
 routes.use("/user",userRoutes);
 routes.use("/payment",paymentMethodRoutes);
 
-
-routes.get("/docs", (req, res) => {
-    res.status(200).send("Paso ruta para Docs");
-});
+// Documentation Route.
+// routes.get("/docs", (req, res) => {
+//     res.status(200).send("Paso ruta para Docs");
+// });
 
 module.exports = routes;
