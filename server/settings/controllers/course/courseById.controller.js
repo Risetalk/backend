@@ -6,9 +6,7 @@ const courseById =  async (req,res)=>{
     try {
 
         const courseById = await Course.findOne({where: {id}})
-        console.log(courseById.id);
-
-
+        
         const allVideoofCourse = await Video.findAll({
             where: {
                 courseId: courseById.id
