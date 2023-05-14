@@ -14,12 +14,16 @@ User.belongsToMany(Course, { through: "user_course" });
 Course.belongsToMany(User, { through: "user_course" });
 
 // Course to CourseComment.
-Course.hasMany(CourseComment);
-CourseComment.belongsTo(Course);
+
+
+Course.hasMany(CourseComment, { foreignKey: 'courseId' });
+CourseComment.belongsTo(Course, { foreignKey: 'courseId' });
+
 
 // User to CourseComment.
-User.hasMany(CourseComment);
-CourseComment.belongsTo(User);
+User.hasMany(CourseComment, { foreignKey: 'userId' });
+CourseComment.belongsTo(User, { foreignKey: 'userId' });
+
 
 // User to Post.
 User.hasMany(Post);
