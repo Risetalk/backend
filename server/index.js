@@ -1,19 +1,28 @@
-const express = require('express')
+// Local Dependencies.
+const app = require("./settings/");
+const sequelize = require("../database/");
 
+const swaggerDocs = require("./settings/docs/v1/swagger");
 
+// Models Import.
+require("../database/models/relationships");
 
-const app = express()
+// Default Port.
+const PORT = 3001;
 
+// Main Function of the Server.
+function main() {
+  // Put the Server to Listen.
+  app.listen(PORT, async () => {
+    // Data Syncronization.
+    await sequelize.sync();
+    // Listening Verify.
+    console.log(`server listening on port: ${PORT}`);
 
-
-function main(){
-
-    app.listen('3001' , ()=>{
-        console.log("listening in port 3000")
-    })
-
+    swaggerDocs(app, PORT);
+    
+  });
 }
 
-
-
-main()
+// Execution Server.
+main();
