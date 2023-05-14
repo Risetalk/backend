@@ -2,6 +2,8 @@
 const app = require("./settings/");
 const sequelize = require("../database/");
 
+const swaggerDocs = require("./settings/docs/v1/swagger");
+
 // Models Import.
 require("../database/models/relationships");
 
@@ -16,6 +18,9 @@ function main() {
     await sequelize.sync();
     // Listening Verify.
     console.log(`server listening on port: ${PORT}`);
+
+    swaggerDocs(app, PORT);
+    
   });
 }
 

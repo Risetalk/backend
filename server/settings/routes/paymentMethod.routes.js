@@ -1,3 +1,5 @@
+
+
 // Third Party Dependencies.
 const { Router } = require("express");
 
@@ -6,6 +8,7 @@ const PaymentMethodPost = require("../controllers/patmentMethod/paymentMethod.co
 
 // Router Instance.
 const paymentMethodRoutes = Router();
+
 
 paymentMethodRoutes.post("/", PaymentMethodPost );
 

@@ -1,5 +1,4 @@
-const swaggerJsdoc = require("swagger-jsdoc")
-const swaggerUi = require("swagger-ui-express");
+// Objective: Define the routes of the application.
 
 // Third Party Dependencies.
 const { Router } = require("express");
@@ -20,9 +19,5 @@ routes.use("/post",postRoutes);
 routes.use("/user",userRoutes);
 routes.use("/payment",paymentMethodRoutes);
 
-// Documentation Route.
-// routes.get("/docs", (req, res) => {
-//     res.status(200).send("Paso ruta para Docs");
-// });
 
 module.exports = routes;
