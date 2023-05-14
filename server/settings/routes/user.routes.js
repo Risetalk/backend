@@ -7,6 +7,7 @@ const User = require("../../../database/models/user.model");
 // Router Instance.
 const userRoutes = Router();
 
+
 userRoutes.post("/user", async (req, res) => {
 
   const {
@@ -40,6 +41,63 @@ userRoutes.post("/user", async (req, res) => {
     res.status(404).json(error);
   }
 });
-
+/**
+ * @openapi
+ * paths:
+ *   /user:
+ *    get:
+ *     tags: [Users]
+ *     summary: Get all User Information
+ *     description: > 
+ *       **This route will return all the information of the user registered in the database.**
+ *     requestBody:
+ *       required: true
+ *       content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/User'
+ * 
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ * 
+ *    post:
+ *     tags: [Users]
+ *     summary: Create a new User
+ *     description: >
+ *       **This route will create a new user in the database.**
+ *     requestBody:
+ *       required: true
+ *       content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/User'
+ * 
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ * 
+ *    put:
+ *     tags: [Users]
+ *     summary: Update a User
+ *     description: >
+ *       **This route will update a user in the database.**
+ * 
+ *    delete:
+ *     tags: [Users]
+ *     summary: Delete a User
+ *     description: >
+ *       **This route will delete a user in the database.**
+ * 
+ * 
+*/
 
 module.exports = userRoutes;
