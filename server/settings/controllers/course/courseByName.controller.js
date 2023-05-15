@@ -6,6 +6,7 @@ const courseByName = async(req, res)=>{
         const {name} = req.query
         const allCourse = await Course.findAll()
         
+        
         if(req.query.hasOwnProperty("name") && name !== ""){
             
             const courseByName = allCourse.filter((cour) => cour.title.toLowerCase().includes(name.toLowerCase()) )
@@ -16,8 +17,8 @@ const courseByName = async(req, res)=>{
             
             res.status(200).json(allCourse)
 
-        }else{
-           
+        }else if(Object.keys(req.query).length === 0)res.status(200).json(allCourse)
+        else{
             res.status(404).json({message : `The property '${Object.keys(req.query)}' in the query is incorrect, try entering 'name'`})
         
         }
