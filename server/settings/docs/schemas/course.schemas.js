@@ -1,74 +1,225 @@
 
-
+// Post Course Route.
 /**
  * @swagger
  * components:
  *   schemas:
- *     Course:
+ *     CoursePost:
  *       type: object
  *       required:
- *         - first_name
- *         - last_name
- *         - user_name
- *         - email
- *         - date_birth
+ *         - title
+ *         - description
+ *         - background_image
+ *         - price
+ * 
  *       properties:
- *         id:
- *           type: string
- *           format: uuid
- *           description: ID del usuario.
- *         first_name:
+ *         title:
  *           type: string
  *           maxLength: 50
  *           minLength: 1
- *           description: Nombre del usuario.
- *         last_name:
+ *           description: Nombre del curso.
+ *  
+ *         description:
  *           type: string
- *           maxLength: 50
+ *           maxLength: 500
  *           minLength: 1
- *           description: Apellido del usuario.
- *         user_name:
+ *           description: Descripción del curso.
+ * 
+ *         background_image:
  *           type: string
- *           maxLength: 50
+ *           maxLength: 500
  *           minLength: 1
- *           description: Nombre de usuario del usuario.
- *         profile_picture:
- *           type: string
- *           maxLength: 50
+ * 
+ *         price:
+ *           type: number
+ *           maxLength: 500    
  *           minLength: 1
- *           description: URL de la imagen de perfil del usuario.
- *         email:
- *           type: string
- *           format: email
- *           maxLength: 50
- *           minLength: 1
- *           description: Dirección de correo electrónico del usuario.
- *         date_birth:
- *           type: string
- *           format: date
- *           description: Fecha de nacimiento del usuario.
- *         is_tutor:
- *           type: boolean
- *           description: Indica si el usuario es un tutor o no.
- *         is_staff:
- *           type: boolean
- *           description: Indica si el usuario es personal de staff o no.
- *         is_active:
- *           type: boolean
- *           description: Indica si el usuario está activo o no.
- *         about_me:
- *           type: string
- *           description: Información sobre el usuario.
+ * 
  *       example:
- *         id: d15cf475-5be9-4d23-b6f3-0ef24e7e20c1
- *         first_name: John
- *         last_name: Doe
- *         user_name: johndoe
- *         profile_picture: profile.jpg
- *         email: johndoe@example.com
- *         date_birth: 1990-01-01
- *         is_tutor: false
- *         is_staff: false
- *         is_active: true
- *         about_me: Soy desarrollador de software.
+ *         title: "Introduction to Programming"
+ *         description: "Learn the basics of programming and start developing your own applications."
+ *         background_image: "https://example.com/course_image.jpg"
+ *         price: 29.99
+ * 
+ *     CoursePostResponse:
+ *       type: object
+ *       properties:
+ *         201:
+ *           type: boolean
+ *           description: Indica si la solicitud se procesó correctamente.
+ *         data:
+ *           type: object
+ *           properties:
+ *             id:
+ *               type: string
+ *               description: Id del curso.
+ *             title:
+ *               type: string
+ *               description: Nombre del curso.
+ *             description:
+ *               type: string
+ *               description: Descripción del curso.
+ *             background_image:
+ *               type: string
+ *               description: Imagen de fondo del curso.
+ *             price:
+ *               type: number
+ *               description: Precio del curso.
+ *             released_date:
+ *               type: string
+ *               description: Fecha de lanzamiento del curso.
+ *             rating:
+ *               type: number
+ *               description: Calificación del curso.
+ *             updatedAt:
+ *               type: string
+ *               description: Fecha de actualización del curso.
+ *             createdAt:
+ *               type: string
+ *               description: Fecha de creación del curso.
+ * 
+ *       example:
+ *         id: "90cf919a-fb0c-4101-968f-d097fdc43b82"
+ *         released_date: "2021-08-31T04:00:00.000Z"
+ *         rating: 0
+ *         title: "Introduction to Programming"
+ *         description: "Learn the basics of programming and start developing your own applications."
+ *         background_image: "https://example.com/course_image.jpg"
+ *         price: 29.99
+ *         updatedAt: "2021-08-31T04:00:00.000Z"
+ *         createdAt: "2021-08-31T04:00:00.000Z"
+ * 
  */
+
+// Get Course By Id.
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     CourseByIdResponse:
+ *       type: object
+ *       properties:
+ *         201:
+ *           type: boolean
+ *           description: Indica si la solicitud se procesó correctamente.
+ *         data:
+ *           type: object
+ *           properties:
+ *             id:
+ *               type: string
+ *               description: Id del curso.
+ *             title:
+ *               type: string
+ *               description: Nombre del curso.
+ *             description:
+ *               type: string
+ *               description: Descripción del curso.
+ *             background_image:
+ *               type: string
+ *               description: Imagen de fondo del curso.
+ *             price:
+ *               type: number
+ *               description: Precio del curso.
+ *             released_date:
+ *               type: string
+ *               description: Fecha de lanzamiento del curso.
+ *             rating:
+ *               type: number
+ *               description: Calificación del curso.
+ *             updatedAt:
+ *               type: string
+ *               description: Fecha de actualización del curso.
+ *             createdAt:
+ *               type: string
+ *               description: Fecha de creación del curso.
+ *             video:
+ *               type: number
+ *               description: Número de videos del curso.
+ * 
+ *       example:
+ *         id: "90cf919a-fb0c-4101-968f-d097fdc43b82"
+ *         released_date: "2021-08-31T04:00:00.000Z"
+ *         rating: 0
+ *         title: "Introduction to Programming"
+ *         description: "Learn the basics of programming and start developing your own applications."
+ *         background_image: "https://example.com/course_image.jpg"
+ *         price: 29.99
+ *         updatedAt: "2021-08-31T04:00:00.000Z"
+ *         createdAt: "2021-08-31T04:00:00.000Z"
+ *         video: 0
+ * 
+ */
+
+// Get All Courses.
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     CourseAllResponse:
+ *       type: array
+ *       items:
+ *         type: object
+ *         properties:
+ *           id:
+ *             type: string
+ *             description: Id del curso.
+ *           title:
+ *             type: string
+ *             description: Nombre del curso.
+ *           description:
+ *             type: string
+ *             description: Descripción del curso.
+ *           background_image:
+ *             type: string
+ *             description: Imagen de fondo del curso.
+ *           price:
+ *             type: number
+ *             description: Precio del curso.
+ *           released_date:
+ *             type: string
+ *             description: Fecha de lanzamiento del curso.
+ *           rating:
+ *             type: number
+ *             description: Calificación del curso.
+ *           updatedAt:
+ *             type: string
+ *             description: Fecha de actualización del curso.
+ *           createdAt:
+ *             type: string
+ *             description: Fecha de creación del curso.
+ *           video:
+ *             type: number
+ *             description: Número de videos del curso.
+ *
+ *       example:
+ *         - id: "bf8ee72c-fa68-4197-92e8-3c0429638df4"
+ *           released_date: "2022-05-01"
+ *           rating: 45
+ *           title: "Introducción a la Programación"
+ *           description: "Aprende los conceptos básicos de la programación y comienza a desarrollar tus propias aplicaciones."
+ *           background_image: "https://example.com/course_image.jpg"
+ *           price: 29.99
+ *           updatedAt: "2023-05-14T23:20:03.063Z"
+ *           createdAt: "2023-05-14T23:20:03.063Z"
+ *           video: 0
+ *         - id: "9c18f92d-103d-4221-a575-dab2cfaae8eb"
+ *           released_date: "2023-05-14"
+ *           rating: 0
+ *           title: "Introducción a Python"
+ *           description: "Aprende los conceptos básicos de la programación y comienza a desarrollar tus propias aplicaciones."
+ *           background_image: "https://example.com/course_image.jpg"
+ *           price: 29.99
+ *           updatedAt: "2023-05-15T02:12:15.963Z"
+ *           createdAt: "2023-05-15T02:12:15.963Z"
+ *           video: 0
+ *         - id: "774ab8d8-7270-43f1-890b-8dbb9d26b94d"
+ *           released_date: "2023-05-14"
+ *           rating: 0
+ *           title: "Introducción a Laravel"
+ *           description: "Aprende los conceptos básicos de la programación y comienza a desarrollar tus propias aplicaciones."
+ *           background_image: "https://example.com/course_image.jpg"
+ *           price: 29.99
+ *           updatedAt: "2023-05-15T02:12:19.693Z"
+ *           createdAt: "2023-05-15T02:12:19.693Z"
+ *           video: 0
+*/

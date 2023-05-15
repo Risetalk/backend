@@ -15,24 +15,21 @@ const User = sequelize.define(
     },
     first_name: {
       type: DataTypes.STRING(50),
-      allowNull: false,
     },
     last_name: {
       type: DataTypes.STRING(50),
-      allowNull: false,
     },
     user_name: {
       type: DataTypes.STRING(50),
-      allowNull: false,
       unique: true,
     },
     profile_picture: {
-      type: DataTypes.STRING(50),
-      allowNull: false,
+      type: DataTypes.STRING,
+      defaultValue: "https://ionicframework.com/docs/img/demos/avatar.svg",
+      allowNull: true,
     },
     email: {
       type: DataTypes.STRING(50),
-      allowNull: false,
       validate: {
         isEmail: true,
       },
@@ -40,25 +37,25 @@ const User = sequelize.define(
     },
     date_birth: {
       type: DataTypes.DATEONLY,
-      allowNull: false,
     },
     is_tutor: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
       defaultValue: false,
+      allowNull: true,
     },
     is_staff: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
       defaultValue: false,
+      allowNull: true,
     },
     is_active: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
-      allowNull: false,
+      allowNull: true,
     },
     about_me: {
       type: DataTypes.TEXT,
+      defaultValue: "Your description here...",
       allowNull: true,
     },
   },

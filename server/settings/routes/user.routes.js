@@ -8,7 +8,7 @@ const User = require("../../../database/models/user.model");
 const userRoutes = Router();
 
 
-userRoutes.post("/user", async (req, res) => {
+userRoutes.post("/", async (req, res) => {
 
   const {
     first_name,
@@ -18,8 +18,6 @@ userRoutes.post("/user", async (req, res) => {
     email,
     date_birth,
     is_tutor,
-    is_staff,
-    is_active,
     about_me,
   } = req.body;
 
@@ -32,12 +30,13 @@ userRoutes.post("/user", async (req, res) => {
       email: email,
       date_birth: date_birth,
       is_tutor: is_tutor,
-      is_staff: is_staff,
-      is_active: is_active,
       about_me: about_me,
     });
-    res.status(200).json(user);
+
+    res.status(201).json(user);
+
   } catch (error) {
+    console.log(error);
     res.status(404).json(error);
   }
 });
@@ -58,13 +57,13 @@ userRoutes.post("/user", async (req, res) => {
  *            $ref: '#/components/schemas/User'
  * 
  *     responses:
- *       200:
+ *       201:
  *         description: Success
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/User'
- * 
+ *               $ref: '#/components/schemas/UserResponse'
+ *
  *    post:
  *     tags: [Users]
  *     summary: Create a new User
@@ -78,12 +77,12 @@ userRoutes.post("/user", async (req, res) => {
  *            $ref: '#/components/schemas/User'
  * 
  *     responses:
- *       200:
- *         description: Success
+ *       201:
+ *         description: Created
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/User'
+ *               $ref: '#/components/schemas/UserResponse'
  * 
  *    put:
  *     tags: [Users]

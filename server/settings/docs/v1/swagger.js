@@ -23,40 +23,42 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:3000",
+        url: "http://localhost:3001",
         description: "Development server",
       },
       {
-        url: "http://46.101.200.26",
+        url: "http://46.101.105.17:3001",
         description: "Production Server",
       },
     ],
     tags: [
       {
         name: "Courses",
-        description: "API for courses in the system",
+        description: "Endpoints for courses in the system",
       },
       {
         name: "Users",
-        description: "API for users in the system",
+        description: "Endpoints for users in the system",
       },
       {
         name: "Videos",
-        description: "API for videos in the system",
+        description: "Endpoints for videos in the system",
       },
       {
         name: "Posts",
-        description: "API for posts in the system",
+        description: "Endpoints for posts in the system",
       },
       {
         name: "Payment Methods",
-        description: "API for payment methods in the system",
+        description: "Endpoints for payment methods in the system",
       },
       {
         name: "Post Comments",
+        description: "Endpoints for post comments in the system",
       },
       {
         name: "Course Comments",
+        description: "Endpoints for course comments in the system",
       },
 
     ],

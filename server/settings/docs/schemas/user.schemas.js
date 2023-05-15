@@ -11,10 +11,6 @@
  *         - email
  *         - date_birth
  *       properties:
- *         id:
- *           type: string
- *           format: uuid
- *           description: ID del usuario.
  *         first_name:
  *           type: string
  *           maxLength: 50
@@ -48,25 +44,40 @@
  *         is_tutor:
  *           type: boolean
  *           description: Indica si el usuario es un tutor o no.
- *         is_staff:
- *           type: boolean
- *           description: Indica si el usuario es personal de staff o no.
- *         is_active:
- *           type: boolean
- *           description: Indica si el usuario está activo o no.
  *         about_me:
  *           type: string
  *           description: Información sobre el usuario.
  *       example:
- *         id: d15cf475-5be9-4d23-b6f3-0ef24e7e20c1
  *         first_name: John
  *         last_name: Doe
  *         user_name: johndoe
- *         profile_picture: profile.jpg
+ *         profile_picture: "https://example.com/image.jpg"
  *         email: johndoe@example.com
  *         date_birth: 1990-01-01
  *         is_tutor: false
+ *         about_me: Soy desarrollador de software.
+ * 
+ *     UserResponse:
+ *       type: object
+ *       properties:
+ *         201:
+ *           type: boolean
+ *           description: Indica si la solicitud se procesó correctamente.
+ *         data:
+ *           $ref: '#/components/schemas/User'
+ *       example:
+ *         id: "90cf919a-fb0c-4101-968f-d097fdc43b82"
+ *         profile_picture: "https://example.com/image.jpg"
  *         is_staff: false
  *         is_active: true
- *         about_me: Soy desarrollador de software.
+ *         first_name: "John"
+ *         last_name: "Doe"
+ *         user_name: "johndoe"
+ *         email: "johndoe@example.com"
+ *         date_birth: "1990-01-01"
+ *         is_tutor: false
+ *         about_me: "Soy desarrollador de software."
+ *         updatedAt: "2021-08-31T04:00:00.000Z"
+ *         createdAt: "2021-08-31T04:00:00.000Z"
+ * 
  */

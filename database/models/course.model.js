@@ -12,31 +12,28 @@ const Course = sequelize.define(
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      allowNull: false,
     },
     title: {
       type: DataTypes.STRING(50),
-      allowNull: false,
     },
     description: {
       type: DataTypes.TEXT,
-      allowNull: false,
     },
     background_image: {
-      type: DataTypes.STRING(50),
-      allowNull: false,
+      type: DataTypes.STRING,
     },
     released_date: {
       type: DataTypes.DATEONLY,
-      allowNull: false,
+      defaultValue: DataTypes.NOW,
+      allowNull: true,
     },
     rating: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      defaultValue: 0,
+      allowNull: true,
     },
     price: {
       type: DataTypes.DECIMAL,
-      allowNull: false,
     },
   },
   {
