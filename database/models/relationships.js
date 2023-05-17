@@ -6,6 +6,7 @@ const PostComment = require("./postComment.model");
 const PaymentMethod = require("./paymentMethod.model");
 const Video = require("./video.model");
 const CourseComment = require("./courseComment.model");
+const purchasedCourse=require("./purchasedCourse.model");
 
 // Relation Ships.
 
@@ -13,8 +14,13 @@ const CourseComment = require("./courseComment.model");
 User.belongsToMany(Course, { through: "user_course" });
 Course.belongsToMany(User, { through: "user_course" });
 
-// Course to CourseComment.
 
+// User to purchasedCourse.
+User.hasMany(purchasedCourse, { foreignKey: 'userId' });
+purchasedCourse.belongsTo(User, { foreignKey: 'userId' });
+
+
+// Course to CourseComment.
 
 Course.hasMany(CourseComment, { foreignKey: 'courseId' });
 CourseComment.belongsTo(Course, { foreignKey: 'courseId' });
