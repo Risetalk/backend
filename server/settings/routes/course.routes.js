@@ -45,6 +45,28 @@ routesCourse.post("/", postCourses);
  * 
 */
 
+// Get All Courses.
+routesCourse.get("/", allCourses);
+/**
+ * @openapi
+ * paths:
+ *   /courses:
+ *    get:
+ *     tags: [Courses]
+ *     summary: Search All Courses.
+ *     description: > 
+ *       **This route will search all courses.**
+ * 
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/CourseAllResponse'
+ * 
+*/
+
 // Get Course By Id
 routesCourse.get("/:id", courseById)
 /**
@@ -76,11 +98,11 @@ routesCourse.get("/:id", courseById)
 */
 
 // Get Course By Name And Get All Courses
-routesCourse.get("/name", courseByName)
+routesCourse.get("/:title", courseByName)
 /**
  * @openapi
  * paths:
- *   /courses/name:
+ *   /courses/:title
  *    get:
  *     tags: [Courses]
  *     summary: Search a Course by Name.
@@ -101,26 +123,6 @@ routesCourse.get("/name", courseByName)
  * 
 */
 
-// Get All Courses.
-routesCourse.get("/", allCourses);
-/**
- * @openapi
- * paths:
- *   /courses:
- *    get:
- *     tags: [Courses]
- *     summary: Search All Courses.
- *     description: > 
- *       **This route will search all courses.**
- * 
- *     responses:
- *       200:
- *         description: Success
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/CourseAllResponse'
- * 
-*/
+
 
 module.exports = routesCourse;
