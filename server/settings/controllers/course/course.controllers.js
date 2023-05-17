@@ -24,6 +24,36 @@ const postCourse = async (req, res) => {
         .status(401)
         .json({ error: "User is not authorized to create courses" });
 
+    //I am looking for all the courses that the instructor has
+    const userSearch = await User.findByPk(id, {
+      include: [{
+        model: Course,
+        through: {
+          attributes: []
+        }
+      }]
+    })
+
+
+    //Check if the course already exists
+    let bandera = false;
+    
+    const allCourses = userSearch.courses;
+    
+    for (let i = 0; i < allCourses.length; i++) {
+
+      if (
+        allCourses[i].dataValues.title.toLowerCase() === title.toLowerCase()
+      ) {
+        bandera = true;
+        i = allCourses.length;
+      }
+    }
+
+    //If the course is purchased, it returns an error.
+    if (bandera) return res.status(400).json({ error: "The course already exists in the user!" });
+
+
     // Create the course.
     const course = await Course.create({
       title,
