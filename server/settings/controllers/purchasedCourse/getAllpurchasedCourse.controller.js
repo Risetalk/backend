@@ -1,5 +1,5 @@
 // Local Dependencies.
-const purchasedCourse = require("../../../../database/models/purchasedCourse.model");
+
 const User = require("../../../../database/models/user.model");
 
 
@@ -16,18 +16,12 @@ const getAllpurchasedCourse = async (req, res) => {
 
         // If the user does not exist, return an error.
         if (!user) return res.status(400).json({ error: "User not found" });
-
-
-        // Get all the course of the user.
-        const allCoursesOfUser = await purchasedCourse.findAll({
-            where: {
-                userId: id,
-            },
-        });
+        //I bring all user related courses
+        const courses = await user.getCourses();
         //Question if the number of courses is zero
-        if (allCoursesOfUser.length === 0) return res.status(200).json({ error: "No courses purchased!"});
+        if (courses.length === 0) return res.status(200).json({ error: "No courses purchased!" });
         //Respond with the courses found
-        res.status(200).json(allCoursesOfUser);
+        res.status(200).json(courses);
 
     } catch (error) {
 
