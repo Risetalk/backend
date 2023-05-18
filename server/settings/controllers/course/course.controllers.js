@@ -8,7 +8,7 @@ const postCourse = async (req, res) => {
   const { id } = req.query;
 
   // Get the data from the body.
-  const { title, description, background_image, price } = req.body;
+  const { title, description, language, background_image, price } = req.body;
 
   try {
 
@@ -23,27 +23,19 @@ const postCourse = async (req, res) => {
       return res
         .status(401)
         .json({ error: "User is not authorized to create courses" });
+    
+    //I verify if the language field matches the values
+    //if (language != "spanish" || language != "english" || language != "french" || language != "portuguese") return res.status(400).json({ error: "Language not supported" });
 
-    //I am looking for all the courses that the instructor has
-    const userSearch = await User.findByPk(id, {
-      include: [{
-        model: Course,
-        through: {
-          attributes: []
-        }
-      }]
-    })
+    //I bring all courses
+    const allCourses = await Course.findAll();
 
 
     //Check if the course already exists
     let bandera = false;
-    
-    const allCourses = userSearch.courses;
-    
     for (let i = 0; i < allCourses.length; i++) {
-
       if (
-        allCourses[i].dataValues.title.toLowerCase() === title.toLowerCase()
+        allCourses[i].title.toLowerCase() === title.toLowerCase()
       ) {
         bandera = true;
         i = allCourses.length;
@@ -51,22 +43,21 @@ const postCourse = async (req, res) => {
     }
 
     //If the course is purchased, it returns an error.
-    if (bandera) return res.status(400).json({ error: "The course already exists in the user!" });
+    if (bandera) return res.status(400).json({ error: "The course already exists on the platform!" });
 
 
     // Create the course.
-    const course = await Course.create({
+    const newCourse = await Course.create({
       title,
       description,
+      language,
       background_image,
       price,
+      userId: user.id // Asigna el ID del usuario al campo userId en el nuevo curso
     });
-
-    // Add the course to the user.
-    course.addUser(id);
-
+    
     // Return the course.
-    res.status(200).json(course);
+    res.status(200).json(newCourse);
 
   } catch (error) {
 

@@ -2,18 +2,24 @@
 const Course = require("../../../../database/models/course.model");
 
 
-const allCourses = async (req, res) => {
+const allCourses = async (req, res, next) => {
 
-  try {
+  if (!req.query.id) {
 
-    const courses = await Course.findAll();
+    try {
 
-    res.status(200).json(courses);
+      const courses = await Course.findAll();
 
-  } catch (error) {
+      res.status(200).json(courses);
 
-    res.status(404).json({ message: error.message });
+    } catch (error) {
+
+      res.status(404).json({ message: error.message });
+    }
+  } else {
+    next();
   }
+
 };
 
 module.exports = allCourses;

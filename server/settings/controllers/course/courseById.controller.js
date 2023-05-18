@@ -1,6 +1,7 @@
 // Local Dependencies.
 const Course = require("../../../../database/models/course.model");
 const Video = require("../../../../database/models/video.model");
+const Lesson = require("../../../../database/models/lesson.model");
 
 
 //This function will verify that the data coming in is a UUID.
@@ -23,25 +24,32 @@ const courseById = async (req, res, next) => {
 
       // If the course does not exist, return a 404.
       if (!course) {
-        return res.status(404).send("The requested id does not exist");
+        return res.status(404).json({ error: "The requested id does not exist" });
+      }
+      //I bring all the lessons of the courses
+      const AllLessonsOfCourse = await course.getLessons();
+      //I verify that the number of lessons is not zero.
+      if (AllLessonsOfCourse.length === 0) return res.status(404).json({ error: "The course has no lessons" });
+      //I am looking for all the videos of the lessons
+      let videoCounter = 0;
+      for (let i = 0; i < AllLessonsOfCourse.length; i++) {
+        const lesson = await Lesson.findByPk(AllLessonsOfCourse[i].id);
+        const allVideosOfLesson = await lesson.getVideos();
+        allVideosOfLesson.map((video) => videoCounter++);
+
       }
 
-      // Get all the videos of the course.
-      const allVideoofCourse = await Video.findAll({
-        where: {
-          courseId: course.id,
-        },
-      });
-
+      //I build an object with all the information
       const allInformationCourse = {
 
         // Spread Operator and Convert to JSON.
         ...course.toJSON(),
         // Add the number of videos.
-        video: allVideoofCourse.length,
+        video: videoCounter,
+        lessons: AllLessonsOfCourse.length,
 
       };
-
+      //Retorno con toda la informacion
       res.status(200).send(allInformationCourse);
 
     } catch (error) {
@@ -65,3 +73,4 @@ const courseById = async (req, res, next) => {
 };
 
 module.exports = courseById;
+
