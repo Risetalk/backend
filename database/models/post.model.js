@@ -12,19 +12,15 @@ const Post = sequelize.define(
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      allowNull: false,
     },
     title: {
-      type: DataTypes.STRING(50),
-      allowNull: false,
+      type: DataTypes.STRING(100),
     },
     description: {
       type: DataTypes.TEXT,
-      allowNull: false,
     },
     background_image: {
-      type: DataTypes.STRING(50),
-      allowNull: false,
+      type: DataTypes.STRING(100),
     },
   },
   {
