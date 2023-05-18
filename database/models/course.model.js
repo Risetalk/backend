@@ -19,6 +19,9 @@ const Course = sequelize.define(
     description: {
       type: DataTypes.TEXT,
     },
+    language:{
+      type: DataTypes.ENUM('spanish', 'english', 'french', 'portuguese'),
+    },
     background_image: {
       type: DataTypes.STRING,
     },

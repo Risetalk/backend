@@ -6,22 +6,21 @@ const PostComment = require("./postComment.model");
 const PaymentMethod = require("./paymentMethod.model");
 const Video = require("./video.model");
 const CourseComment = require("./courseComment.model");
-const purchasedCourse=require("./purchasedCourse.model");
+const Lesson = require("./lesson.model");
 
 // Relation Ships.
 
 // User to Course.
-User.belongsToMany(Course, { through: "user_course" });
-Course.belongsToMany(User, { through: "user_course" });
+User.hasMany(Course, { foreignKey: 'userId' });
+Course.belongsTo(User, { foreignKey: 'userId' });
 
 
-// User to purchasedCourse.
-User.hasMany(purchasedCourse, { foreignKey: 'userId' });
-purchasedCourse.belongsTo(User, { foreignKey: 'userId' });
+//User to purchasedCourse
+User.belongsToMany(Course, { through: "purchased_course" });
+Course.belongsToMany(User, { through: "purchased_course" });
 
 
 // Course to CourseComment.
-
 Course.hasMany(CourseComment, { foreignKey: 'courseId' });
 CourseComment.belongsTo(Course, { foreignKey: 'courseId' });
 
@@ -43,10 +42,18 @@ PostComment.belongsTo(Post);
 User.hasMany(PaymentMethod);
 PaymentMethod.belongsTo(User);
 
-// Course to Video.
 
-Course.hasMany(Video, { foreignKey: 'courseId' });
-Video.belongsTo(Course, { foreignKey: 'courseId' });
+// Course to Lesson.
+
+Course.hasMany(Lesson, { foreignKey: 'courseId' });
+Lesson.belongsTo(Course, { foreignKey: 'courseId' });
+
+
+// Lesson to Video.
+
+Lesson.hasMany(Video, { foreignKey: 'lessonId' });
+Video.belongsTo(Lesson, { foreignKey: 'lessonId' });
+
 
 module.exports = {
   User,
