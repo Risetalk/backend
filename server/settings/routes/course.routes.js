@@ -6,6 +6,7 @@ const allCourses = require("../controllers/course/allCourses.controller");
 const postCourses = require("../controllers/course/course.controllers");
 const courseById = require("../controllers/course/courseById.controller")
 const courseByName = require("../controllers/course/courseByName.controller")
+const courseByUser = require("../controllers/course/allCourseByUser.controller");
 // Router Instance.
 const routesCourse = Router();
 
@@ -67,6 +68,14 @@ routesCourse.get("/", allCourses);
  * 
 */
 
+
+// Get All Courses By User
+routesCourse.get("/", courseByUser)
+
+
+
+
+
 // Get Course By Id
 routesCourse.get("/:id", courseById)
 /**
@@ -102,6 +111,31 @@ routesCourse.get("/:title", courseByName)
 /**
  * @openapi
  * paths:
+ *   /courses/{title}:
+ *    get:
+ *     tags: [Courses]
+ *     summary: Search a Course by Name.
+ *     description: > 
+ *       **This route will search a course by name.**
+ *     requestBody:
+ *       required: true
+ *       content:
+ *        application/json:
+ *          
+ * 
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             
+ * 
+*/
+// Get Course By Name
+routesCourse.get("/:title", courseByName)
+/**
+ * @openapi
+ * paths:
  *   /courses/:title
  *    get:
  *     tags: [Courses]
@@ -122,6 +156,7 @@ routesCourse.get("/:title", courseByName)
  *             
  * 
 */
+
 
 
 
