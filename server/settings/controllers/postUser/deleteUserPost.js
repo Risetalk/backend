@@ -25,7 +25,10 @@ const deleteUserPost = async (req,res)=>{
         await onePost.destroy()
         
         //if everything was executed correctly, status 204 is triggered
-        res.status(200).send("the post was successfully deleted")
+        res.status(200).send({
+            status:200,
+            message:"the post was successfully deleted"
+        })
     } catch (error) {
 
         res.status(500).json({message: error.message})

@@ -30,12 +30,6 @@ Post.belongsTo(User);
 Post.hasMany(PostComment);
 PostComment.belongsTo(Post);
 
-
-
-
-
-
-
 // User to PostComment
 User.hasMany(PostComment);
 PostComment.belongsTo(User)

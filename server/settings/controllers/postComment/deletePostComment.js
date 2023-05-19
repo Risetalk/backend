@@ -18,7 +18,10 @@ const deletePostComment = async (req,res) =>{
         onePostComment.destroy()
 
         //a code 200 is sent if everything has been done correctly.
-        res.status(200).send("the post_comment was successfully deleted")
+        res.status(200).send({
+            status:200,
+            message:"the post_comment was successfully deleted"
+        })
     } catch (error) {
         res.status(404).json({message: error.message})
     }

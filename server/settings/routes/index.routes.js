@@ -10,7 +10,7 @@ const videoRoutes = require("./video.routes");
 const userRoutes = require("./user.routes");
 const postRoutes = require("./post.routes");
 const paymentMethodRoutes = require("./paymentMethod.routes");
-const postComment = require("./postComment")
+const postComment = require("./postComment.routes")
 // Router Instance.
 const routes = Router();
 
