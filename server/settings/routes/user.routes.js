@@ -53,6 +53,7 @@ userRoutes.post("/user", async (req, res) => {
     });
     res.status(200).json(user);
   } catch (error) {
+    
     res.status(404).json(error);
   }
 });

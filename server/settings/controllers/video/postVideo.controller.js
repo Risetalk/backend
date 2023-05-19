@@ -1,45 +1,44 @@
 const Video = require("../../../../database/models/video.model");
-const Course = require("../../../../database/models/course.model");
+const Lesson = require("../../../../database/models/lesson.model");
 
 
 const postVideo = async (req, res) => {
-    const { title, description, url_video } = req.body;
-    const { idCourse } = req.query;
 
+    const { id } = req.query;
+    
+    const { title, description, url_video } = req.body;
+    
     try {
-        const course = await Course.findByPk(idCourse);
-        if (!course) {
-            return res.status(400).json({ error: "Course not found" });
+        const lesson = await Lesson.findByPk(id);
+
+        if (!lesson) {
+            return res.status(400).json({ error: "Lesson not found" });
         }
 
-        const existingVideo = await Video.findAll({
-            where: {
-                courseId: idCourse,
-            },
-        });
+        const allVideosOfLesson = await lesson.getVideos(); 
 
         let bandera = false;
 
-        for (let i = 0; i < existingVideo.length; i++) {
-            
+        for (let i = 0; i < allVideosOfLesson.length; i++) {
             if (
-                existingVideo[i].dataValues.title.toLowerCase() === title.toLowerCase()
+                allVideosOfLesson[i].title.toLowerCase() === title.toLowerCase()
             ) {
                 bandera = true;
-                i = existingVideo.length;
+                i = allVideosOfLesson.length;
             }
         }
 
-         if (bandera) return res.status(400).json({ error: "The video already exists in the course!" });
+        if (bandera) return res.status(400).json({ error: "TThe video already exists in the lesson!" });
 
         const newVideo = await Video.create({
             title,
             description,
             url_video,
-            courseId: idCourse, 
+            lessonId: id
         });
 
         res.status(200).json(newVideo);
+
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

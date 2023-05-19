@@ -6,6 +6,7 @@ const allCourses = require("../controllers/course/allCourses.controller");
 const postCourses = require("../controllers/course/course.controllers");
 const courseById = require("../controllers/course/courseById.controller")
 const courseByName = require("../controllers/course/courseByName.controller")
+const courseByUser = require("../controllers/course/allCourseByUser.controller");
 // Router Instance.
 const routesCourse = Router();
 
@@ -45,6 +46,36 @@ routesCourse.post("/", postCourses);
  * 
 */
 
+// Get All Courses.
+routesCourse.get("/", allCourses);
+/**
+ * @openapi
+ * paths:
+ *   /courses:
+ *    get:
+ *     tags: [Courses]
+ *     summary: Search All Courses.
+ *     description: > 
+ *       **This route will search all courses.**
+ * 
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/CourseAllResponse'
+ * 
+*/
+
+
+// Get All Courses By User
+routesCourse.get("/", courseByUser)
+
+
+
+
+
 // Get Course By Id
 routesCourse.get("/:id", courseById)
 /**
@@ -76,11 +107,36 @@ routesCourse.get("/:id", courseById)
 */
 
 // Get Course By Name And Get All Courses
-routesCourse.get("/name", courseByName)
+routesCourse.get("/:title", courseByName)
 /**
  * @openapi
  * paths:
- *   /courses/name:
+ *   /courses/{title}:
+ *    get:
+ *     tags: [Courses]
+ *     summary: Search a Course by Name.
+ *     description: > 
+ *       **This route will search a course by name.**
+ *     requestBody:
+ *       required: true
+ *       content:
+ *        application/json:
+ *          
+ * 
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             
+ * 
+*/
+// Get Course By Name
+routesCourse.get("/:title", courseByName)
+/**
+ * @openapi
+ * paths:
+ *   /courses/:title
  *    get:
  *     tags: [Courses]
  *     summary: Search a Course by Name.
@@ -101,26 +157,7 @@ routesCourse.get("/name", courseByName)
  * 
 */
 
-// Get All Courses.
-routesCourse.get("/", allCourses);
-/**
- * @openapi
- * paths:
- *   /courses:
- *    get:
- *     tags: [Courses]
- *     summary: Search All Courses.
- *     description: > 
- *       **This route will search all courses.**
- * 
- *     responses:
- *       200:
- *         description: Success
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/CourseAllResponse'
- * 
-*/
+
+
 
 module.exports = routesCourse;
