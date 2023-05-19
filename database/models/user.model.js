@@ -14,13 +14,13 @@ const User = sequelize.define(
       primaryKey: true,
     },
     first_name: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(),
     },
     last_name: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(),
     },
     user_name: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(),
       unique: true,
     },
     profile_picture: {
@@ -29,11 +29,15 @@ const User = sequelize.define(
       allowNull: true,
     },
     email: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(),
       validate: {
         isEmail: true,
       },
       unique: true,
+    },
+    password: {
+      type: DataTypes.STRING(),
+      allowNull: false,
     },
     date_birth: {
       type: DataTypes.DATEONLY,
@@ -58,6 +62,20 @@ const User = sequelize.define(
       defaultValue: "Your description here...",
       allowNull: true,
     },
+    token: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    createGoogle: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
+    },
+    accountConfirmed: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
+    }
   },
   {
     // No pluralization.
