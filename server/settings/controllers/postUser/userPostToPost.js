@@ -19,6 +19,7 @@ try {
     //the data entered are verified to exist
     if(!title || !description || !background_image) return res.status(412).json({message: "You must send the requested fields"})
 
+    
     //the user is stored in a constant, in case the requested user is not found, an error is thrown
     const userById = await User.findByPk(userId)
     if(!userById) throw new Error("Can't find a user with that id") 
