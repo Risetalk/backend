@@ -3,6 +3,7 @@ require("dotenv").config()
 
 // utilizamos nodemailer para hacer el envio de email funcion para confirmar el usuario
 const emailRegistro = async(user) => {
+
     const transport = nodemailer.createTransport({
         host:'smtp.gmail.com',
         port: 465,
@@ -17,7 +18,7 @@ const emailRegistro = async(user) => {
         to: user.user.dataValues.email,
         subject: 'Confirma Tu Cuenta',
         text: 'Comprueba tu cuenta en RiseTalk',
-        html:`<P>Hola: ${user.user.dataValues.name} Comprueba tu cuenta en RiseTalk</P>
+        html:`<P>Hola: ${user.user.dataValues.first_name } Comprueba tu cuenta en RiseTalk</P>
         <p>Tu cuenta ya esta casi lista solo debes comprobarla en el siguiente enlace:</p>
         <a href="${process.env.FRONTEND_URL}/user/confirmar/${user.user.dataValues.token}">Confirma Cuenta</a>
         <p>Si tu no confirmaste tu cuenta, puedes ignorar el mensaje</p>

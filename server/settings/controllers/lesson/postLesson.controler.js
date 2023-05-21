@@ -1,46 +1,62 @@
 //Local dependence
-const Lesson = require("../../../../database/models/lesson.model");
 const Course = require("../../../../database/models/course.model");
+const Lesson = require("../../../../database/models/lesson.model");
+const postVideo = require("../video/postVideo.controller");
 
-const postLesson = async (req, res) => {
-    //I receive the course id by query
-    const { id } = req.query;
-    //I receive the data of the lesson by body
-    const { title, description } = req.body;
+const postLesson = async ( req ,res , courseId, lessons) => {
+  try {
 
+    // Vaidate the data.
+    if (!courseId || !lessons)
+      return res.status(412).json({
+        status: 412,
+        message: "All fields in lessons are required.!!!",
+      });
 
-    try {
-        //I am looking for the course by id
-        const course = await Course.findByPk(id);
-        //If the course does not exist, it returns an error.
-        if (!course) return res.status(400).json({ error: "The course does not exist" })
-        //I bring all the lessons of the course
-        const AllLessonsOfCourse = await course.getLessons();
-        //I check that there is no lesson to be saved.
-        let bandera = false;
-        for (let i = 0; i < AllLessonsOfCourse.length; i++) {
-            if (
-                AllLessonsOfCourse[i].title.toLowerCase() === title.toLowerCase()
-            ) {
-                bandera = true;
-                i = AllLessonsOfCourse.length;
-            }
-        }
+    // Validate the lessons.
+    lessons.forEach(async ({ title, description , videos }) => {
 
-        //If the course is purchased, it returns an error.
-        if (bandera) return res.status(400).json({ error: "The lesson already exists in the course!" });
-        //I create the lesson and relate it to the course.
-        const newLesson = await Lesson.create({
-            title,
-            description,
-            courseId: course.id,
+      // Validate field lengths.
+      if (
+        // Title Length.
+        title.length < 5 ||
+        title.length > 50 ||
+        // Description Length.
+        description.length < 10 ||
+        description.length > 500 ||
+        // Videos Length.
+        videos.length < 1
+      )
+        return res.status(412).json({
+          status: 412,
+          message: "Invalid field length!!!",
+        });
+    
+    });
+
+    // Create the lessons.
+    lessons.forEach(async ({ title, description , videos }) => {
+        
+        // Create the lesson.
+        const lessonCreated = await Lesson.create({
+            title: title,
+            description: description,
+            courseId: await courseId,
         });
 
-        //I return the new lesson
-        res.status(200).json(newLesson)
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
+        // Add the videos to the lesson.
+        await postVideo(req , res , lessonCreated.id , videos)
+    });
+
+  } catch (error) {
+
+    // Return the error.
+    return res.status(500).json({
+      status: 500,
+      message: error.message,
+    });
+    
+  }
 };
 
 module.exports = postLesson;

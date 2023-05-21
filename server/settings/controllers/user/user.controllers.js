@@ -31,14 +31,18 @@ const registroUser = async (req, res) => {
             user_name,
             email,
             password: hashedPassword,
-            date_birth
+            date_birth,
+            is_tutor: true
+
         });
+        
         // generamos el token de confirmacion del usuario
         user.token = generarIdToken()
         // guardamos el usuario en la base de datos
         await user.save();
         // enviamos el token al correo de usuario
         emailRegistro({ user })
+        
         res.status(200).send({ message: 'User created successfully' })
     } catch (error) {
         res.status(400).json({ error: error.message })

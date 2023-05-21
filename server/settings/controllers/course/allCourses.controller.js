@@ -23,3 +23,32 @@ const allCourses = async (req, res, next) => {
 };
 
 module.exports = allCourses;
+
+
+
+// Object with Courses , Lessons and Videos.
+
+// const course =
+//   {
+//     id: 1, 
+
+//     title: "Curso de React",
+//     description: "Aprende React desde cero a nivel profesional",
+//     language: "spanish",
+//     background_image: "https://i.imgur.com/8JWbZdF.jpg",
+//     released_date: "2021-01-01",
+//     price: 100,
+//     lessons: [
+//       {
+//         id: 1, 
+//         title: "Introducción a React",
+//         description: "Aprende React desde cero a nivel profesional", 
+//         videos: [
+//           {  
+//             id: 1,
+//             title: "Introducción a React",
+//             description: "Aprende React desde cero a nivel profesional",
+
+
+
+  
