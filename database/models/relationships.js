@@ -15,10 +15,9 @@ User.hasMany(Course, { foreignKey: 'userId' });
 Course.belongsTo(User, { foreignKey: 'userId' });
 
 
-//User to purchasedCourse
-User.belongsToMany(Course, { through: "purchased_course" });
-Course.belongsToMany(User, { through: "purchased_course" });
-
+//User to bought courses.
+User.belongsToMany(Course, { through: 'boughtCourses' });
+Course.belongsToMany(User, { through: "boughtCourses" });
 
 // Course to CourseComment.
 Course.hasMany(CourseComment, { foreignKey: 'courseId' });

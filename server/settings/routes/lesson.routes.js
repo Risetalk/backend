@@ -10,14 +10,14 @@ const lessonById = require("../controllers/lesson/getOneLesson.controller");
 // Router Instance.
 const routesLesson = Router();
 
-// Post Course Route.
-routesLesson.post("/", postLesson);
+// // Post Course Route.
+// routesLesson.post("/", postLesson);
 
-// Get All Courses.
-routesLesson.get("/", allLesson);
+// // Get All Courses.
+// routesLesson.get("/", allLesson);
 
-// Get Course By Id
-routesLesson.get("/:id", lessonById)
+// // Get Course By Id
+// routesLesson.get("/:id", lessonById)
 
 
 
