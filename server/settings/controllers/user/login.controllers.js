@@ -5,26 +5,26 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 
-// Enpoint para el login del usuario
+// Enpoint for user login
 const login = async (req, res) => {
     try {
-        // tomamos los datos que viene por body
+        // We take the data that comes by body
         const { email, password } = req.body;
-        // buscamos el usuario por el email
+        // We look for the user by email
         const user = await User.findOne({ where: { email: email } });
-        // veficamos que no exista
+        // We verify that it does not exist
         if (!user) return res.status(404).json({ message: "User not exist" })
-        // comparamos la contraseña de base de datos con la que el usuario nos manda
+        // We compare the database password with the one the user sends us
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(404).json({ message: "Password incorrect" })
-        // confirmamos que sean correctas
+        // We confirm that they are correct
         if (!user.accountConfirmed) {
             const error = new Error('Tu usuario no ha sido confirmado')
             return res.status(403).json({ msg: error.message })
         }
-        // generamos el token de autentificacion
+        // Generate the authentication token
         const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: "1h" })
-        // mostrasmos los datod del usuario autenticado
+        // We show the data of the authenticated user
         res.status(200).send({ token, user })
     } catch (error) {
         res.status(400).json({ error: error.message })

@@ -13,17 +13,17 @@ const nuevoPassword = require("../controllers/user/newPassword.controllers");
 // Router Instance.
 const userRoutes = Router();
 
-// Registrar Usuarios.
+// Register Users.
 userRoutes.post("/register", registroUser);
-// Iniciar seccion despues de registrase
+// Start section after registration
 userRoutes.post("/login", login);
-// confimar cuenta despues de registrase
+// Confirm account after registration
 userRoutes.get("/confirmar/:token", confirmar);
-// Autenticarse con google login
+// Authenticate with google login
 userRoutes.post("/googlelogin",  googlelogin);
-// recuracion de contraseña envio de email para recuperacion
+// Password recovery send email for recovery
 userRoutes.post("/olvide-password", olvidePasswordUser);
-// ingresar contrase la nueva contraseña con token valido
+// Enter password the new password with valid token
 userRoutes.route("/olvide-password/:token").get(comprobarToken).post(nuevoPassword);
 
 

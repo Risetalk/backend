@@ -3,22 +3,23 @@ const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 dotenv.config();
 
+//put new password
 const nuevoPassword = async (req, res) => {
-    // recibimos el token que viene por y nueva contraseña por token
+    // We receive the token that comes by and new password by token
     const { token } = req.params;
     const { password } = req.body;
-    // buscamos el token en la base de datos
+    // We look for the token in the database
     const user = await User.findOne({ where: { token } })
-    //   encritamos la nueva contraseña
+    // We write the new password
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    //   pasamos la contraseña encriptada para que se remplaze la nueva por la vieja contraseña
+    // We pass the encrypted password so that the new one is replaced by the old password
     user.password = hashedPassword;
-    // borramos el token
+    // We delete the token
     user.token = "";
     try {
-        // guardamos los cambios del usuario
+        // We save the user's changes
         await user.save();
         res.json({ msg: 'Password changed successfully' })
     } catch (error) {

@@ -5,22 +5,22 @@ const generarIdToken = require("../../helper/generarIdToken");
 const { emailRegistro } = require("../../helper/envioEmail");
 dotenv.config();
 
-// Enpoint para el registro del usuario
+// Endpoint for user registration
 const registroUser = async (req, res) => {
     try {
-        // tomamos los datos que vienen por body
+        // We take the data that comes by body
         const { first_name, last_name, user_name, email, password, date_birth } = req.body;
         
-        // buscamos el usuario por el email 
+        // We look for the user by email 
         const existeUsuario = await User.findOne({ where: { email } })
-        // verificamos que este registrado
+        // We verify that you are registered
         if (existeUsuario) {
             return res.status(404).json({ message: "User already exists" })
         }
-        // encriptamos la contraseña
+        // We encrypt the password
         const salt = await bcrypt.genSalt();
         const hashedPassword = await bcrypt.hash(password, salt);
-        // creamos una intancia del usuario pasando la contraseña encriptada
+        // We create an instance of the user by passing the encrypted password
         const user = new User({
             first_name,
             last_name,
@@ -32,11 +32,11 @@ const registroUser = async (req, res) => {
 
         });
         
-        // generamos el token de confirmacion del usuario
+        // We generate the user confirmation token
         user.token = generarIdToken()
-        // guardamos el usuario en la base de datos
+        // We save the user in the database
         await user.save();
-        // enviamos el token al correo de usuario
+        // We send the token to the user's email
         emailRegistro({ user })
         
         res.status(200).send({ message: 'User created successfully' })

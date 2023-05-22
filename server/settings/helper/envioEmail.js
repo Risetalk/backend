@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer')
 require("dotenv").config()
 
-// utilizamos nodemailer para hacer el envio de email funcion para confirmar el usuario
+// We use nodemailer to make the send email function to confirm the user
 const emailRegistro = async(user) => {
 
     const transport = nodemailer.createTransport({
@@ -26,7 +26,7 @@ const emailRegistro = async(user) => {
       })
 }
 
-// utilizamos nodemailer para hacer el envio de email funcion para cambiar contraseña del usuario
+// We use nodemailer to send email function to change user password
 const olvidePassword = async(user) => {
   const transport = nodemailer.createTransport({
     host: 'smtp.gmail.com',
