@@ -1,4 +1,4 @@
-// generamos token para autenticar usuario 
+// We generate token to authenticate user
 const generarIdToken = () => {
     
     const random = Math.random().toString(32).substring(2)

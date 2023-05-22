@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-// Middleware para la autorizacion de datos 
+// Middleware for data authorization
 const verifyToken = (req, res, next ) => {
     try {
         const token = req.header("Authorization");
@@ -8,11 +8,9 @@ const verifyToken = (req, res, next ) => {
         if(!token ) {
             return res.status(401).json({message: "Invalid Authentication"});
         }
-
         if(token.startsWith("Bearer ")) {
             token = token.slice(7, token.length).trimLeft();
          }
-
          const varified = jwt.verify(token, process.env.SECRET_KEY);
          req.user = varified;
          next();

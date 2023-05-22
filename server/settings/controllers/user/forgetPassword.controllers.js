@@ -5,24 +5,24 @@ const { olvidePassword } = require("../../helper/envioEmail");
 dotenv.config();
 
 
-// Enpoint recupreaacin de password
+// Endpoint password recovery
 const olvidePasswordUser = async (req, res) => {
-    // usuario envia email de la cuenta
+    // user sends account email
     const { email } = req.body
-    // buscamos en la base de datos el email
+    // We search the database for the email
     const user = await User.findOne({ where: { email } })
-    // validamos de que exista el email
+    // We validate that the email exists
     if (!user) {
         const error = new Error('Email no existe')
         return res.status(404).json({ msg: error.message })
     }
 
     try {
-        // genermos un nuevo token
+        // Let's generate a new token
         user.token = generarIdToken();
-        // guardamos el usuario en la base de datos
+        // We save the user in the database
         await user.save();
-        //   envio de email con las intrucciones para la recuperacion del email
+        // Email sent with instructions for email recovery
         olvidePassword({ user })
         res.json({ msg: 'We have sent an email with the instructions' })
     } catch (error) {

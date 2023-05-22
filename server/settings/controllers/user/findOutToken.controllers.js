@@ -3,13 +3,13 @@ const dotenv = require("dotenv");
 dotenv.config()
 
 
-// Enponit comprobacion de token
+// Enponit token check
 const comprobarToken = async (req, res) => {
-    // recibimos el token que viene por params
+    /// We receive the token that comes from params
     const { token } = req.params;
-    // buscamos el token en la base de datos
+    // We look for the token in the database
     const usuarioConfirmar = await User.findOne({ where: { token } })
-    // validamos que no este utlizado
+    // We validate that it is not used
     if (!usuarioConfirmar) {
         const error = new Error('Token no valido')
         return res.status(403).json({ msg: error.message })

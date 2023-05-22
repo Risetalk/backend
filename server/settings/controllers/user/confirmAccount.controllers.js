@@ -2,24 +2,24 @@ const User = require("../../../../database/models/user.model");
 const dotenv = require("dotenv");
 dotenv.config();
 
-// Enpoint Confrmacion de la cuenta  
+// Endpoint Account Information  
 const confirmar = async (req, res) => {
-    // recibimos el token que viene por params
+    // Get the token that comes from params
     const { token } = req.params;
-    // buscamos el token en la base de datos
+    // We look for the token in the database
     const usuarioConfirmar = await User.findOne({ where: { token } })
-    // validamos que no este utlizado
+    // We validate that it is not used
     if (!usuarioConfirmar) {
         const error = new Error('invalid token')
         return res.status(403).json({ msg: error.message })
     }
     
     try {
-        // confirmamos la cuenta
+        // We confirm the account
         usuarioConfirmar.accountConfirmed = true;
-        //   removemos el token que ya se utilizo
+        //We remove the token that was already used
         usuarioConfirmar.token = ""
-        //   guardamos los cambios del usuario
+        // We save the user's changes
         await usuarioConfirmar.save();
         res.status(200).send({ message: 'confirmed user' })
     } catch (error) {
