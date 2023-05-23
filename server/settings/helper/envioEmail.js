@@ -15,12 +15,12 @@ const emailRegistro = async(user) => {
     })
       await transport.sendMail({
         from:'"RiseTalk - Administrador de Cuentas" <cuentas@RiseTalk.com>',
-        to: user.user.dataValues.email,
+        to: user.dataValues.email,
         subject: 'Confirma Tu Cuenta',
         text: 'Comprueba tu cuenta en RiseTalk',
-        html:`<P>Hola: ${user.user.dataValues.first_name } Comprueba tu cuenta en RiseTalk</P>
+        html:`<P>Hola: ${user.dataValues.first_name } Comprueba tu cuenta en RiseTalk</P>
         <p>Tu cuenta ya esta casi lista solo debes comprobarla en el siguiente enlace:</p>
-        <a href="${process.env.FRONTEND_URL}/user/confirmar/${user.user.dataValues.token}">Confirma Cuenta</a>
+        <a href="${process.env.FRONTEND_URL}/register/confirmated/${user.dataValues.token}">Confirma Cuenta</a>
         <p>Si tu no confirmaste tu cuenta, puedes ignorar el mensaje</p>
         `
       })
@@ -40,12 +40,12 @@ const olvidePassword = async(user) => {
 
     await transport.sendMail({
       from:'"RiseTalk - Administrador de cuentas" <cuentas@RiseTalk.com>',
-      to: user.user.dataValues.email,
+      to: user.dataValues.email,
       subject: 'RiseTalk - Restablece tu Contraseña',
       text: 'Restablece tu Contraseña',
-      html:`<P>Hola: ${user.user.dataValues.name} has solicitado reestablecer tu contraseña en RiseTalk</P>
+      html:`<P>Hola: ${user.dataValues.name} has solicitado reestablecer tu contraseña en RiseTalk</P>
       <p>Sigue el siguinete enlace para generar un nueva contraseña:</p>
-      <a href="${process.env.FRONTEND_URL}/user/olvide-password/${user.user.dataValues.token}">Reestablecer Contraseña</a>
+      <a href="${process.env.FRONTEND_URL}/login/forgetpassword/${user.user.dataValues.token}">Reestablecer Contraseña</a>
       <p>Si tu no solicitaste este email, puedes ignorar el mensaje</p>
       `
     })

@@ -43,13 +43,19 @@ const googlelogin = async (req, res) => {
                 // We save the user in the database
                 user = await newUser.save();
             }
+            
             // We generate authentication token
             const token = jwt.sign({ _id: user._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
             // We show the authenticated user
             res.json({
-                token,
-                user: user._previousDataValues,
-            });
+                id: user.id,
+                first_name: user.first_name,
+                last_name: user.last_name,
+                user_name: user.user_name,
+                email: user.email,
+                date_birth: user.date_birth,
+                token
+            })
         } else {
             return res.status(400).json({ error: "Invalid email" });
         }
