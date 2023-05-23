@@ -2,11 +2,20 @@ const User = require("../../../../database/models/user.model")
 const Post = require("../../../../database/models/post.model")
 
 
-
+const fs = require("fs")
 const userPostToPost = async (req,res)=>{
 
 try {
-    
+    console.log(req.file.filename);
+    const original = "../../../statics/img" + req.file.filename;
+    const modification = req.file.filename + ".jpg";
+    fs.rename(original, modification, (error) => {
+        if (error) {
+          console.error('Error al renombrar la imagen:', error);
+        } else {
+          console.log('Imagen renombrada exitosamente.');
+        }
+      });
     //search for id by params
     let {userId} = req.params;
 
@@ -14,10 +23,10 @@ try {
     if(userId.length !== 36 || !userId.includes("-")) return res.status(412).json({message: `The syntax '${userId}' is not valid, you must enter a valid uuid, an exemple '2d9af42a-22fa-4a38-ab67-adbf1ce07642'`})
 
     //data is obtained by req. body
-    const {title, description, background_image} = req.body
+    const {title, description} = req.body
 
     //the data entered are verified to exist
-    if(!title || !description || !background_image) return res.status(412).json({message: "You must send the requested fields"})
+    if(!title || !description ) return res.status(412).json({message: "You must send the requested fields"})
 
     
     //the user is stored in a constant, in case the requested user is not found, an error is thrown
@@ -28,7 +37,7 @@ try {
     const createPost = await Post.create({
         title,
         description,
-        background_image,
+        
         userId
     })
 
