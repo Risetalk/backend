@@ -25,7 +25,15 @@ const login = async (req, res) => {
         // Generate the authentication token
         const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: "1h" })
         // We show the data of the authenticated user
-        res.status(200).send({ token, user })
+        res.json({
+            id: user.id,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            user_name: user.user_name,
+            email: user.email,
+            date_birth: user.date_birth,
+            token
+        })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }

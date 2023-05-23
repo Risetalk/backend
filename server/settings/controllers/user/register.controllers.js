@@ -15,7 +15,8 @@ const registroUser = async (req, res) => {
         const existeUsuario = await User.findOne({ where: { email } })
         // We verify that you are registered
         if (existeUsuario) {
-            return res.status(404).json({ message: "User already exists" })
+            const error = new Error ("User already exists")
+             return res.status(404).json({message:error.message})
         }
         // We encrypt the password
         const salt = await bcrypt.genSalt();
@@ -37,7 +38,7 @@ const registroUser = async (req, res) => {
         // We save the user in the database
         await user.save();
         // We send the token to the user's email
-        emailRegistro({ user })
+       await emailRegistro(user)
         
         res.status(200).send({ message: 'User created successfully' })
     } catch (error) {
