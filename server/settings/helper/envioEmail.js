@@ -1,7 +1,17 @@
 const nodemailer = require('nodemailer')
 require("dotenv").config()
+const path = require('path');
+const fs = require('fs');
 
-// We use nodemailer to make the send email function to confirm the user
+
+// Obtén la ruta absoluta al archivo HTML
+const htmlFilePath = path.resolve(__dirname, 'ValidateEmail.html');
+const cssFilePath = path.resolve(__dirname, 'style.css');
+// Lee el contenido del archivo HTML
+const htmlContent = fs.readFileSync(htmlFilePath, 'utf8');
+const cssContent = fs.readFileSync(cssFilePath, "utf-8")
+// utilizamos nodemailer para hacer el envio de email funcion para confirmar el usuario
+
 const emailRegistro = async(user) => {
 
     const transport = nodemailer.createTransport({
@@ -13,16 +23,19 @@ const emailRegistro = async(user) => {
             pass: process.env.CONTRASENIA_GMAIL_APLICACION // generated ethereal password
         }
     })
+    
+const htmladdcss = htmlContent.replace(/<style>[\s\S]*<\/style>/, `<style>${cssContent}</style>`)
+
+console.log(htmladdcss);
+
       await transport.sendMail({
-        from:'"RiseTalk - Administrador de Cuentas" <cuentas@RiseTalk.com>',
-        to: user.dataValues.email,
-        subject: 'Confirma Tu Cuenta',
-        text: 'Comprueba tu cuenta en RiseTalk',
-        html:`<P>Hola: ${user.dataValues.first_name } Comprueba tu cuenta en RiseTalk</P>
-        <p>Tu cuenta ya esta casi lista solo debes comprobarla en el siguiente enlace:</p>
-        <a href="${process.env.FRONTEND_URL}/register/confirmated/${user.dataValues.token}">Confirma Cuenta</a>
-        <p>Si tu no confirmaste tu cuenta, puedes ignorar el mensaje</p>
-        `
+
+        from:'"RiseTalk - Account Manager" <accounts@RiseTalk.com>',
+        to: user.user.dataValues.email,
+        subject: 'Confirm Your Account',
+        text: 'Check your account on RiseTalk',
+        html: htmladdcss
+
       })
 }
 
@@ -37,17 +50,15 @@ const olvidePassword = async(user) => {
       pass: process.env.CONTRASENIA_GMAIL_APLICACION,
     }
     });
-
+    
     await transport.sendMail({
       from:'"RiseTalk - Administrador de cuentas" <cuentas@RiseTalk.com>',
       to: user.dataValues.email,
       subject: 'RiseTalk - Restablece tu Contraseña',
       text: 'Restablece tu Contraseña',
-      html:`<P>Hola: ${user.dataValues.name} has solicitado reestablecer tu contraseña en RiseTalk</P>
-      <p>Sigue el siguinete enlace para generar un nueva contraseña:</p>
-      <a href="${process.env.FRONTEND_URL}/login/forgetpassword/${user.user.dataValues.token}">Reestablecer Contraseña</a>
-      <p>Si tu no solicitaste este email, puedes ignorar el mensaje</p>
-      `
+
+      html: password_reset_html
+
     })
 }
 
