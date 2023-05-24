@@ -1,30 +1,21 @@
 const Course = require("../../../../database/models/course.model")
 
-const courseByName = async(req, res)=>{
+const courseByName = async (req, res) => {
+    //I receive the title to search for through params
+    const { title } = req.params;
     try {
-
-        const {name} = req.query
+        //I fetch all the courses
         const allCourse = await Course.findAll()
-        
-        
-        if(req.query.hasOwnProperty("name") && name !== ""){
-            
-            const courseByName = allCourse.filter((cour) => cour.title.toLowerCase().includes(name.toLowerCase()) )
-            if(courseByName.length === 0) return res.status(404).json({message: "No course found with that name"})
-            res.status(200).json(courseByName)
+        //I search for the title in the courses
+        const courseByName = allCourse.filter((cour) => cour.title.toLowerCase().includes(title.toLowerCase()))
+        //If there are no related courses, i return an error
+        if (courseByName.length === 0) return res.status(404).json({ message: "No course found with that name" })
+        //I return all related courses
+        res.status(200).json(courseByName)
 
-        }else if(name === ""){
-            
-            res.status(200).json(allCourse)
-
-        }else if(Object.keys(req.query).length === 0)res.status(200).json(allCourse)
-        else{
-            res.status(404).json({message : `The property '${Object.keys(req.query)}' in the query is incorrect, try entering 'name'`})
-        
-        }
     } catch (error) {
 
-        res.status(404).json({message: error.message})
+        res.status(404).json({ message: error.message })
 
     }
 }

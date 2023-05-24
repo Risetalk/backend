@@ -3,6 +3,7 @@ require("dotenv").config()
 const path = require('path');
 const fs = require('fs');
 
+
 // Obtén la ruta absoluta al archivo HTML
 const htmlFilePath = path.resolve(__dirname, 'ValidateEmail.html');
 const cssFilePath = path.resolve(__dirname, 'style.css');
@@ -10,7 +11,10 @@ const cssFilePath = path.resolve(__dirname, 'style.css');
 const htmlContent = fs.readFileSync(htmlFilePath, 'utf8');
 const cssContent = fs.readFileSync(cssFilePath, "utf-8")
 // utilizamos nodemailer para hacer el envio de email funcion para confirmar el usuario
+
+
 const emailRegistro = async(user) => {
+
     const transport = nodemailer.createTransport({
         host:'smtp.gmail.com',
         port: 465,
@@ -26,15 +30,20 @@ const htmladdcss = htmlContent.replace(/<style>[\s\S]*<\/style>/, `<style>${cssC
 
 
       await transport.sendMail({
+
+
         from:'"RiseTalk - Account Manager" <accounts@RiseTalk.com>',
         to: user.user.dataValues.email,
         subject: 'Confirm Your Account',
         text: 'Check your account on RiseTalk',
         html: htmladdcss
+
+
       })
 }
 
-// utilizamos nodemailer para hacer el envio de email funcion para cambiar contraseña del usuario
+// We use nodemailer to send email function to change user password
+
 const olvidePassword = async(user) => {
   const transport = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -48,10 +57,13 @@ const olvidePassword = async(user) => {
     
     await transport.sendMail({
       from:'"RiseTalk - Administrador de cuentas" <cuentas@RiseTalk.com>',
-      to: user.user.dataValues.email,
+
+      to: user.dataValues.email,
       subject: 'RiseTalk - Restablece tu Contraseña',
       text: 'Restablece tu Contraseña',
+
       html: password_reset_html
+
     })
 }
 

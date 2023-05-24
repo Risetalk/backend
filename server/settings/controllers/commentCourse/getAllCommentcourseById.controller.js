@@ -3,7 +3,6 @@ const Course = require("../../../../database/models/course.model");
 const CourseComment = require("../../../../database/models/courseComment.model")
 const User = require("../../../../database/models/user.model");
 
-
 const getAllCommentcourseById = async (req, res) => {
 
     const { idCourse } = req.query;
