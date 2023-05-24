@@ -22,7 +22,7 @@ const postCourse = async (req, res) => {
       });
 
     // Destructure the course.
-    const { title, description, language, background_image, price , lessons } = course;
+    const { title, description, language, background_image, price , lessons , categoryId } = course;
 
 
     // Langauge validation.
@@ -41,7 +41,7 @@ const postCourse = async (req, res) => {
     // Validate field lengths.
     if (
       // Title Length.
-      title.length < 5 || title.length > 50 ||
+      title.length < 3 || title.length > 50 ||
       // Description Length.
       description.length < 10 || description.length > 500 ||
       // Background Image Length.
@@ -97,6 +97,7 @@ const postCourse = async (req, res) => {
       background_image: background_image,
       price: price,
       userId: id,
+      categoryId: categoryId
     });
 
     // Create the lessons.
