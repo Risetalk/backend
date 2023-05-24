@@ -4,8 +4,15 @@ const postToPostController = require("../controllers/postUser/userPostToPost")
 const getUserPost = require("../controllers/postUser/getUserPost")
 const putUserPost = require("../controllers/postUser/putUserPost")
 const deleteUserPost = require("../controllers/postUser/deleteUserPost")
+
+const multer = require("multer")
+const path = require("path")
 // Router Instance.
 const postRoutes = Router();
+
+postRoutes.use(multer({
+    dest: path.join(__dirname + "../../../statics/img")
+}).single("background_image"))
 
 // Routing to postToPostController handler
 postRoutes.post("/:userId", postToPostController)

@@ -12,6 +12,7 @@ const htmlContent = fs.readFileSync(htmlFilePath, 'utf8');
 const cssContent = fs.readFileSync(cssFilePath, "utf-8")
 // utilizamos nodemailer para hacer el envio de email funcion para confirmar el usuario
 
+
 const emailRegistro = async(user) => {
 
     const transport = nodemailer.createTransport({
@@ -26,9 +27,10 @@ const emailRegistro = async(user) => {
     
 const htmladdcss = htmlContent.replace(/<style>[\s\S]*<\/style>/, `<style>${cssContent}</style>`)
 
-console.log(htmladdcss);
+
 
       await transport.sendMail({
+
 
         from:'"RiseTalk - Account Manager" <accounts@RiseTalk.com>',
         to: user.user.dataValues.email,
@@ -36,10 +38,12 @@ console.log(htmladdcss);
         text: 'Check your account on RiseTalk',
         html: htmladdcss
 
+
       })
 }
 
 // We use nodemailer to send email function to change user password
+
 const olvidePassword = async(user) => {
   const transport = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -53,6 +57,7 @@ const olvidePassword = async(user) => {
     
     await transport.sendMail({
       from:'"RiseTalk - Administrador de cuentas" <cuentas@RiseTalk.com>',
+
       to: user.dataValues.email,
       subject: 'RiseTalk - Restablece tu Contraseña',
       text: 'Restablece tu Contraseña',

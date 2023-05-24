@@ -14,13 +14,13 @@ const Post = sequelize.define(
       primaryKey: true,
     },
     title: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING,
     },
     description: {
       type: DataTypes.TEXT,
     },
     background_image: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING,
     },
   },
   {
