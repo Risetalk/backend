@@ -1,37 +1,60 @@
-const Post_comment = require("../../../../database/models/postComment.model")
-const Post = require("../../../../database/models/post.model")
-const deleteUserPost = async (req,res)=>{
-    try {
-        //you get the id
-        const {postId} = req.params;
+const Post_comment = require("../../../../database/models/postComment.model");
+const Post = require("../../../../database/models/post.model");
+const cloudinary = require("../../cloudinaryConfig")
 
-        //it is checked that the entered id is of type uuid
-        if(postId.length !== 36 || !postId.includes("-")) return res.status(412).json({message: `The syntax '${postId}' is not valid, you must enter a valid uuid, an exemple '2d9af42a-22fa-4a38-ab67-adbf1ce07642'`})
+const deleteUserPost = async (req, res) => {
+  try {
+   
 
-        //the post is searched by id
-        const onePost = await Post.findByPk(postId)
+    const { postId } = req.params;
 
-        //check if the post was found by id
-        if(!onePost) throw new Error("the post does not exist")
-
-        //the post_comment associated with the post id is removed
-        await Post_comment.destroy({
-            where:{
-                postId: postId
-            }
-        })
-
-        //the searched post is deleted by id
-        await onePost.destroy()
-        
-        //if everything was executed correctly, status 204 is triggered
-        res.status(200).send({
-            status:200,
-            message:"the post was successfully deleted"
-        })
-    } catch (error) {
-
-        res.status(500).json({message: error.message})
+    if (postId.length !== 36 || !postId.includes("-")) {
+      return res.status(412).json({
+        message: `The syntax '${postId}' is not valid. You must enter a valid UUID. For example, '2d9af42a-22fa-4a38-ab67-adbf1ce07642'.`
+      });
     }
-}
+
+    const onePost = await Post.findByPk(postId);
+
+    if (!onePost) {
+      throw new Error("The post does not exist.");
+    }
+
+    let url = onePost.dataValues.background_image;
+    let id = "uploads/" + url.split("/").at(-1).split(".")[0];
+    console.log(id);
+
+    cloudinary.uploader.destroy(id, (error, result) => {
+      if (error) {
+        console.error('Error al eliminar la imagen:', error);
+        return res.status(500).json({ message: 'Error deleting the image.' });
+      }
+
+      console.log('La imagen se ha eliminado correctamente:', result);
+
+      Post_comment.destroy({
+        where: {
+          postId: postId
+        }
+      })
+        .then(() => {
+          return onePost.destroy();
+        })
+        .then(() => {
+          res.status(200).json({
+            status: 200,
+            message: "The post was successfully deleted."
+          });
+        })
+        .catch((error) => {
+          console.error('Error al eliminar el post:', error);
+          res.status(500).json({ message: 'Error deleting the post.' });
+        });
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = deleteUserPost;
+
