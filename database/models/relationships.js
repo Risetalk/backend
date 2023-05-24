@@ -27,11 +27,9 @@ Course.belongsToMany(User, { through: "boughtCourses" });
 Course.hasMany(CourseComment, { foreignKey: 'courseId' });
 CourseComment.belongsTo(Course, { foreignKey: 'courseId' });
 
-
 // User to CourseComment.
 User.hasMany(CourseComment, { foreignKey: 'userId' });
 CourseComment.belongsTo(User, { foreignKey: 'userId' });
-
 
 // User to Post.
 User.hasMany(Post);
@@ -40,6 +38,10 @@ Post.belongsTo(User);
 // Post to PostComment.
 Post.hasMany(PostComment);
 PostComment.belongsTo(Post);
+
+// User to PostComment
+User.hasMany(PostComment);
+PostComment.belongsTo(User)
 
 // User to PaymentMethod.
 User.hasMany(PaymentMethod);
@@ -56,7 +58,6 @@ Lesson.belongsTo(Course, { foreignKey: 'courseId' });
 
 Lesson.hasMany(Video, { foreignKey: 'lessonId' });
 Video.belongsTo(Lesson, { foreignKey: 'lessonId' });
-
 
 module.exports = {
   User,
