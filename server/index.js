@@ -1,7 +1,6 @@
 // Local Dependencies.
 const app = require("./settings/");
 const sequelize = require("../database/");
-
 const swaggerDocs = require("./settings/docs/v1/swagger");
 
 // Models Import.
@@ -15,9 +14,9 @@ function main() {
   // Put the Server to Listen.
   app.listen(PORT, async () => {
     // Data Syncronization.
-    await sequelize.sync({ force: false});
+    await sequelize.sync();
     // Listening Verify.
-    console.log(`server listening on port: ${PORT}`);
+    console.log(`server listening on http://localhost:${PORT}`);
 
     swaggerDocs(app, PORT);
     

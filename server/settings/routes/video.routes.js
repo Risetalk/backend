@@ -2,10 +2,13 @@ const { Router } = require("express");
 
 const videoRoutes = Router();
 
-const postVideoController=require("../controllers/video/postVideo.controller");
-const getAllVideoController=require("../controllers/video/getAllVideo.controller");
+const postVideo = require("../controllers/video/postVideo.controller");
+const getAllVideo = require("../controllers/video/getAllVideo.controller");
+const getOneVideo = require("../controllers/video/getOneVideo.controller");
 
-videoRoutes.post("/", postVideoController);
-videoRoutes.get("/",getAllVideoController);
+// videoRoutes.get("/", getAllVideo);
+
+// videoRoutes.get("/:id", getOneVideo);
+
 
 module.exports = videoRoutes;

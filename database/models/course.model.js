@@ -15,9 +15,14 @@ const Course = sequelize.define(
     },
     title: {
       type: DataTypes.STRING(50),
+      unique: true,
     },
     description: {
       type: DataTypes.TEXT,
+    },
+    language:{
+      type: DataTypes.ENUM,
+      values: ['spanish', 'english', 'french', 'portuguese']
     },
     background_image: {
       type: DataTypes.STRING,
@@ -27,14 +32,20 @@ const Course = sequelize.define(
       defaultValue: DataTypes.NOW,
       allowNull: true,
     },
-    rating: {
+    like:{
+      type:DataTypes.INTEGER,
+      allowNull:true,
+      defaultValue:0
+    },
+    dislike:{
       type: DataTypes.INTEGER,
-      defaultValue: 0,
       allowNull: true,
+      defaultValue: 0
     },
     price: {
       type: DataTypes.DECIMAL,
     },
+
   },
   {
     // No pluralization.
