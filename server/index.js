@@ -2,15 +2,12 @@
 const app = require("./settings/");
 const sequelize = require("../database/");
 const swaggerDocs = require("./settings/docs/v1/swagger");
-const { notFount, errorHandler } = require("./settings/middleware/user/errorHanddler");
+
 // Models Import.
 require("../database/models/relationships");
 
 // Default Port.
 const PORT = 3001;
-
-app.use(notFount)
-app.use(errorHandler)
 
 // Main Function of the Server.
 function main() {

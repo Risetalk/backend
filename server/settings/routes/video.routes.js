@@ -6,11 +6,9 @@ const postVideo = require("../controllers/video/postVideo.controller");
 const getAllVideo = require("../controllers/video/getAllVideo.controller");
 const getOneVideo = require("../controllers/video/getOneVideo.controller");
 
-videoRoutes.post("/", postVideo);
+// videoRoutes.get("/", getAllVideo);
 
-videoRoutes.get("/", getAllVideo);
-
-videoRoutes.get("/:id", getOneVideo);
+// videoRoutes.get("/:id", getOneVideo);
 
 
 module.exports = videoRoutes;

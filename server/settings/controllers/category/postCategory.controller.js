@@ -71,7 +71,6 @@ const postCategory = async (req, res) => {
             folder: categoryFolder
         });
 
-        console.log(background_image)
 
         // Create Category.
         await Category.create(
@@ -82,7 +81,7 @@ const postCategory = async (req, res) => {
             }
         )
 
-        // // Delete file.
+        // Delete file.
         if (req.file) {
             fs.unlinkSync(req.file.path);
         }
