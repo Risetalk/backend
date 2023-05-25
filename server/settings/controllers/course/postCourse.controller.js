@@ -1,4 +1,5 @@
 // Local Dependencies.
+const Category = require("../../../../database/models/category.model");
 const Course = require("../../../../database/models/course.model");
 const User = require("../../../../database/models/user.model");
 const postLesson = require("../lesson/postLesson.controler");
@@ -37,6 +38,15 @@ const postCourse = async (req, res) => {
         message: "Invalid language!!!",
       });
     
+    // Category validation.
+    const category = await Category.findByPk(categoryId);
+
+    // If the category does not exist, return an error.
+    if (!category)
+      return res.status(404).json({
+        status: 404,
+        message: "Category does not exist!!!",
+      });
 
     // Validate field lengths.
     if (

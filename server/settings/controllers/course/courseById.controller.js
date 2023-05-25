@@ -1,76 +1,109 @@
 // Local Dependencies.
+const Category = require("../../../../database/models/category.model");
 const Course = require("../../../../database/models/course.model");
-const Video = require("../../../../database/models/video.model");
 const Lesson = require("../../../../database/models/lesson.model");
+const User = require("../../../../database/models/user.model");
 
+// Course By Id Controller.
+const courseById = async (req, res ) => {
 
-//This function will verify that the data coming in is a UUID.
-function esUUID(dato) {
-  const regex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
-  return regex.test(dato);
-}
-
-const courseById = async (req, res, next) => {
-  //First, i check if the data sent is a UUID, otherwise it moves on to the next
-  if (esUUID(req.params.id)) {
-
-    // Get the id from the params.
+  try {
+    
+    // Desctructure the request body.
     const { id } = req.params;
 
-    try {
+    // Validate the course id.
+    if (!id)
+      return res.status(412).json({
+        status: 412,
+        message: "Course id is required.!!!",
+      });
 
-      // Get the course by id.
-      const course = await Course.findByPk(id);
+    // Validate the course id is UUID.
+    if (id.length !== 36)
+      return res.status(412).json({
+        status: 412,
+        message: "Course id is invalid.!!!",
+      });
 
-      // If the course does not exist, return a 404.
-      if (!course) {
-        return res.status(404).json({ error: "The requested id does not exist" });
-      }
-      //I bring all the lessons of the courses
-      const AllLessonsOfCourse = await course.getLessons();
-      //I verify that the number of lessons is not zero.
-      if (AllLessonsOfCourse.length === 0) return res.status(404).json({ error: "The course has no lessons" });
-      //I am looking for all the videos of the lessons
-      let videoCounter = 0;
-      for (let i = 0; i < AllLessonsOfCourse.length; i++) {
-        const lesson = await Lesson.findByPk(AllLessonsOfCourse[i].id);
-        const allVideosOfLesson = await lesson.getVideos();
-        allVideosOfLesson.map((video) => videoCounter++);
+    // Find the course.
+    const course = await Course.findOne({
+      where: {
+        id: id,
+      },
+    });
 
-      }
+    // Get Lessons.
+    const lessons = await Lesson.findAll({
+      where: {
+        courseId: id,
+      },
+    });
 
-      //I build an object with all the information
-      const allInformationCourse = {
+    // Get User data.
+    const user = await User.findOne({
+      where: {
+        id: course.userId,
+      },
+    });
 
-        // Spread Operator and Convert to JSON.
-        ...course.toJSON(),
-        // Add the number of videos.
-        video: videoCounter,
-        lessons: AllLessonsOfCourse.length,
+    // Get Category data.
+    const category = await Category.findOne({
+      where: {
+        id: course.categoryId,
+      },
+    });
 
-      };
-      //Retorno con toda la informacion
-      res.status(200).send(allInformationCourse);
+    // Desctructure the User data.
+    const { profile_picture, first_name , last_name } = user;
 
-    } catch (error) {
-      if (
-        error.message.includes(
-          "la sintaxis de entrada no es válida para tipo uuid"
-        )
-      ) {
-        return res.status(404).send("The requested id does not exist");
-      }
+    // Structure the data.
+    const data = {
+      course: {
+        id: course.id,
+        title: course.title,
+        description: course.description,
+        price: course.price,
+        category: {
+          title: category.title,
+          background_image: category.background_image,
+        },
+        language: course.language,
+        background_image: course.background_image,
+        lessons: [
+          ...lessons.map((lesson) => {
+            return {
+              title: lesson.title,
+              description: lesson.description,
+            };
+          }),
+        ],
+      },
+      user: {
+        id: user.id,
+        profile_picture: profile_picture,
+        first_name: first_name,
+        last_name: last_name,
+      },
+    };
 
-      res.status(404).json({ message: error.message });
-    }
+    // Return the response.
+    return res.status(200).json({
+      status: 200,
+      message: "Course found.!!!",
+      data: data,
+    });
 
-  } else {
-
-    next();
+  } catch (error) {
+    
+    // Return the error.
+    return res.status(500).json({
+      status: 500,
+      message: error.message,
+    });
 
   }
 
 };
 
 module.exports = courseById;
-
