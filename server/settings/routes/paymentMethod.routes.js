@@ -9,7 +9,7 @@ const PaymentMethodPost = require("../controllers/patmentMethod/paymentMethod.co
 // Router Instance.
 const paymentMethodRoutes = Router();
 
-
+//POST method to pay for a course
 paymentMethodRoutes.post("/", PaymentMethodPost );
 
 module.exports = paymentMethodRoutes;
