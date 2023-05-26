@@ -3,12 +3,11 @@ const Category = require("../../../../database/models/category.model");
 const Course = require("../../../../database/models/course.model");
 const Lesson = require("../../../../database/models/lesson.model");
 const User = require("../../../../database/models/user.model");
+const Video = require("../../../../database/models/video.model");
 
 // Course By Id Controller.
-const courseById = async (req, res ) => {
-
+const courseById = async (req, res) => {
   try {
-    
     // Desctructure the request body.
     const { id } = req.params;
 
@@ -40,6 +39,19 @@ const courseById = async (req, res ) => {
       },
     });
 
+    // Get All videos from the lessons.
+    const videos = await Promise.all(
+      lessons.map(async (lesson) => {
+        return await Video.findAll({
+          where: {
+            lessonId: lesson.id,
+          },
+        });
+      })
+    );
+
+    console.log(videos);
+
     // Get User data.
     const user = await User.findOne({
       where: {
@@ -55,7 +67,7 @@ const courseById = async (req, res ) => {
     });
 
     // Desctructure the User data.
-    const { profile_picture, first_name , last_name } = user;
+    const { profile_picture, first_name, last_name } = user;
 
     // Structure the data.
     const data = {
@@ -64,6 +76,9 @@ const courseById = async (req, res ) => {
         title: course.title,
         description: course.description,
         price: course.price,
+        like: course.like,
+        dislike: course.dislike,
+        updatedAt: course.updatedAt,
         category: {
           title: category.title,
           background_image: category.background_image,
@@ -71,12 +86,18 @@ const courseById = async (req, res ) => {
         language: course.language,
         background_image: course.background_image,
         lessons: [
-          ...lessons.map((lesson) => {
+          ...lessons.map((lesson , index ) => {
             return {
               title: lesson.title,
               description: lesson.description,
+              videos: videos[index].map((video) => {
+                return {
+                  title: video.title,
+                  description: video.description,
+                };
+              }),
             };
-          }),
+          })
         ],
       },
       user: {
@@ -93,17 +114,13 @@ const courseById = async (req, res ) => {
       message: "Course found.!!!",
       data: data,
     });
-
   } catch (error) {
-    
     // Return the error.
     return res.status(500).json({
       status: 500,
       message: error.message,
     });
-
   }
-
 };
 
 module.exports = courseById;
