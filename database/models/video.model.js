@@ -22,7 +22,7 @@ const Video = sequelize.define(
       allownull: false,
     },
     url_video: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING,
       allownull: false,
     },
   },
