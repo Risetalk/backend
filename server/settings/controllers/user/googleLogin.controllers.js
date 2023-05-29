@@ -1,25 +1,19 @@
 const User = require("../../../../database/models/user.model");
 const jwt = require("jsonwebtoken");
-const { OAuth2Client } = require("google-auth-library")
 const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 dotenv.config();
 
-// Client id of Google that allows us to enter the client's data
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
 
 // Enponit login Google
 const googlelogin = async (req, res) => {
  
+    const { name, email, image } = req?.body?.user;
+    console.log(email);
     try {
-        // We pass the google tokenId
-        const { tokenId } = req.body;
-        // We verify that the tokenId is valid
-        const response = await client.verifyIdToken({ idToken: tokenId, audience: process.env.GOOGLE_CLIENT_ID });
-        // We destructure the data we want
-        const { email_verified, name, given_name, family_name, email, picture } = response.payload;
-        // We verify that the email is valid that it is not undefined
-        if (email_verified && email) {
+        
+          // We verify that the email is valid that it is not undefined
+        if (email) {
             // We search the database that excites
             let user = await User.findOne({ where: { email } });
             // We verify it does not exist if it does not exist we save them
@@ -30,15 +24,15 @@ const googlelogin = async (req, res) => {
                 const hashedPassword = await bcrypt.hash(password, salt);
                 // We create an instance of the user
                 const newUser = new User({ 
-                    first_name:given_name, 
-                    last_name:family_name, 
-                    user_name:name, 
-                    profile_picture:picture, 
+                    first_name:name.split(" ")[0],  
+                    last_name:name.split(" ")[1],
+                    user_name:email.split("@")[0], 
+                    profile_picture:image, 
                     email, 
                     password: hashedPassword, 
                     token: "", 
                     createGoogle: true, 
-                    accountConfirmed: email_verified 
+                    accountConfirmed: true 
                 });
                 // We save the user in the database
                 user = await newUser.save();
