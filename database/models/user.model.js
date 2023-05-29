@@ -41,6 +41,7 @@ const User = sequelize.define(
     },
     date_birth: {
       type: DataTypes.DATEONLY,
+      allowNull: true,
     },
     is_tutor: {
       type: DataTypes.BOOLEAN,
