@@ -69,13 +69,15 @@ const User = sequelize.define(
     createGoogle: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
-      allowNull: false,
     },
     accountConfirmed: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
-      allowNull: false,
-    }
+    },
+    customer_id: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     // No pluralization.

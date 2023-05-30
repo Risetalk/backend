@@ -2,7 +2,10 @@
 const express = require("express"),
   morgan = require("morgan"),
   cors = require("cors"),
-  bodyParser = require("body-parser");  
+  bodyParser = require("body-parser"); 
+
+// Stripe Configuration.
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY); 
 
 // Local Dependencies.
 const routes = require("../settings/routes/index.routes");
@@ -27,4 +30,7 @@ app.use(cors( { origin: "*" } ));
 // Router.
 app.use("/", routes);
 
-module.exports = app;
+module.exports = {
+  app,
+  stripe
+};

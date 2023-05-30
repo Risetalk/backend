@@ -47,6 +47,10 @@ PostComment.belongsTo(User)
 User.hasMany(PaymentMethod);
 PaymentMethod.belongsTo(User);
 
+// Purchased Courses.
+User.belongsToMany(Course, { through: 'purchasedCourses' });
+Course.belongsToMany(User, { through: 'purchasedCourses' });
+
 
 // Course to Lesson.
 

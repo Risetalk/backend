@@ -1,5 +1,5 @@
 // Local Dependencies.
-const app = require("./settings/");
+const { app } = require("./settings/");
 const sequelize = require("../database/");
 const swaggerDocs = require("./settings/docs/v1/swagger");
 
