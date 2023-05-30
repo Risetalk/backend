@@ -3,26 +3,48 @@ const User = require("../../../../database/models/user.model");
 
 
 const allCoursesByUser = async (req, res) => {
-    const { id } = req.query;
+   
+    // Get the user_id from the body.
+    const { userId } = req.body;
+
     try {
-        //I am looking for the user
-        const user = await User.findByPk(id);
-        //If the user does not exist, return error
-        if (!user) return res.status(400).json({ error: "The user does not exist" });
-        //If the user is not a tutor, it returns error
-        if (!user.is_tutor) return res.status(400).json({ error: "The user is not a tutor, does not have created courses" });
+        
+        // Verify if the user is a student
+        const user = await User.findOne({ id: userId, is_tutor: false });
 
-        //I bring the courses of this user
+        if (!user)
+            return res.status(400).json({
+                status: 400,
+                message: "User not found or is not a student",
+            });
+
+        // Get the courses of the user.
         const courses = await user.getCourses();
-
-        //If the number of courses is zero, return error
-        if (courses.length === 0) return res.status(400).json({ error: "The tutor has not created any courses yet" });
-        //Return found courses
-        res.status(200).json(courses);
+        
+        // Verify if the user has courses.
+        if (!courses)
+            return res.status(400).json({
+                status: 400,
+                message: "User has not courses",
+            });
+        
+        // Return the courses.
+        return res.status(200).json({
+            status: 200,
+            message: "Courses found",
+            courses
+        });
 
     } catch (error) {
 
-        res.status(404).json({ message: error.message });
+        // Return the error.
+        return res.status(500).json({
+            status: 500,
+            message: "Internal server error",
+            error
+        });
+        
+
     }
 };
 
