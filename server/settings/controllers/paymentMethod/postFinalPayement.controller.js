@@ -10,7 +10,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
 
 const paymentFinal = async (req, res) => {
     //Take the price per body
-    //const { amount } = req.body;
+    const { amount } = req.body;
     //if (!amount || typeof amount == "string") return res.status(400).json({ error:"Enter data correctly"})
     //try {
         //Create the payment attempt
@@ -18,7 +18,7 @@ const paymentFinal = async (req, res) => {
             //Defines the type of currency
             currency: 'USD',
             //We place the price
-            amount: '2000',
+            amount: amount,
             //Automatic payment method enabled
             automatic_payment_methods: {
                 enabled: true,
