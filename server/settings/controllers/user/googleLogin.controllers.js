@@ -12,7 +12,7 @@ const googlelogin = async (req, res) => {
     const { name, email, image } = req?.body?.user;
     console.log(email);
     try {
-    // 
+        
           // We verify that the email is valid that it is not undefined
         if (email) {
             // We search the database that excites
@@ -24,7 +24,7 @@ const googlelogin = async (req, res) => {
                     name: `${name.split(" ")[0]} ${name.split(" ")[1]}`,
                     email,
                   });
-                  
+              
                   // Validate the Customer object.
                   if (!customer.id) {
                     throw new Error("Failed to create customer in Stripe.");
