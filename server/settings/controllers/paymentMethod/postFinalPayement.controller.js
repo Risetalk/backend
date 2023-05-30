@@ -2,6 +2,7 @@
 const paymentFinal = async (req, res) => {
     //Take the price per body
     const { amount } = req.body;
+    if (!amount || typeof amount == "string") return res.status(400).json({ error:"Enter data correctly"})
     try {
         //Create the payment attempt
         const paymentIntent = await stripe.paymentIntents.create({
