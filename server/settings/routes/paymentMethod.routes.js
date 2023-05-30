@@ -2,21 +2,21 @@
 const { Router } = require("express");
 
 // Local Dependencies.
-const postPaymentMethod = require("../controllers/paymentMethod/postPaymentMethod.controller");
-const postPaymentIntent = require("../controllers/paymentMethod/postPaymentIntent.controller");
-const getPaymentMethodsById = require("../controllers/paymentMethod/getPaymentMethodsById.controller");
+const postFinalPayment = require("../controllers/paymentMethod/postFinalPayment.controller");
+
+const configPayment = require("../controllers/paymentMethod/configPayment.controller");
 
 // Router Instance.
-const paymentMethodRoutes = Router();
+//const paymentMethodRoutes = Router();
 
 //POST method to pay for a course
-paymentMethodRoutes.post("/intent",  postPaymentIntent );
+paymentMethodRoutes.post("/create-payment", postFinalPayment);
 
 // Get payment methods by id.
-paymentMethodRoutes.get("/methods", getPaymentMethodsById );
+paymentMethodRoutes.get("/config", configPayment);
 
 // Post payment method.
-paymentMethodRoutes.post("/methods/attach", postPaymentMethod );
+//paymentMethodRoutes.post("/methods/attach", postPaymentMethod );
 
 
 module.exports = paymentMethodRoutes;
