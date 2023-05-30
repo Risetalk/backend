@@ -27,11 +27,6 @@ const Course = sequelize.define(
     background_image: {
       type: DataTypes.STRING,
     },
-    released_date: {
-      type: DataTypes.DATEONLY,
-      defaultValue: DataTypes.NOW,
-      allowNull: true,
-    },
     like:{
       type:DataTypes.INTEGER,
       allowNull:true,

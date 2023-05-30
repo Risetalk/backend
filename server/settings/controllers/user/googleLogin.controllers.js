@@ -24,7 +24,7 @@ const googlelogin = async (req, res) => {
                     name: `${name.split(" ")[0]} ${name.split(" ")[1]}`,
                     email,
                   });
-            
+              
                   // Validate the Customer object.
                   if (!customer.id) {
                     throw new Error("Failed to create customer in Stripe.");

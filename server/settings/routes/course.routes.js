@@ -18,8 +18,32 @@ routesCourse.post("/", postCourse);
 routesCourse.get("/:id", courseById)
 
 
+
 // Get Course By Name And Get All Courses
 routesCourse.get("/name", courseByName)
+/**
+ * @openapi
+ * paths:
+ *   /courses/{title}:
+ *    get:
+ *     tags: [Courses]
+ *     summary: Search a Course by Name.
+ *     description: > 
+ *       **This route will search a course by name.**
+ *     requestBody:
+ *       required: true
+ *       content:
+ *        application/json:
+ *          
+ * 
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             
+ * 
+*/
 
 // Get All Courses.
 routesCourse.get("/", allCourses);
