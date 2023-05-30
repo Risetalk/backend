@@ -2,6 +2,7 @@ const Course = require("../../../../database/models/course.model");
 const User = require("../../../../database/models/user.model");
 
 const postViewCourse = async (req, res) => {
+  
   // Get the user_id from the body.
   const { userId, courseId } = req.body;
 
