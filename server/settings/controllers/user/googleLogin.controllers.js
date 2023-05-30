@@ -2,6 +2,7 @@ const User = require("../../../../database/models/user.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 dotenv.config();
 
 
@@ -11,13 +12,24 @@ const googlelogin = async (req, res) => {
     const { name, email, image } = req?.body?.user;
     console.log(email);
     try {
-    // 
+        
           // We verify that the email is valid that it is not undefined
         if (email) {
             // We search the database that excites
             let user = await User.findOne({ where: { email } });
             // We verify it does not exist if it does not exist we save them
             if (!user) {
+
+                const customer = await stripe.customers.create({
+                    name: `${name.split(" ")[0]} ${name.split(" ")[1]}`,
+                    email,
+                  });
+            
+                  // Validate the Customer object.
+                  if (!customer.id) {
+                    throw new Error("Failed to create customer in Stripe.");
+                  }
+
                 // We encrypt the password and concatenate the email with the word sereta
                 const password = email + process.env.SECRET_KEY;
                 const salt = await bcrypt.genSalt();
@@ -32,7 +44,8 @@ const googlelogin = async (req, res) => {
                     password: hashedPassword, 
                     token: "", 
                     createGoogle: true, 
-                    accountConfirmed: true 
+                    accountConfirmed: true,
+                    customer_id: customer.id,
                 });
                 // We save the user in the database
                 user = await newUser.save();
@@ -48,7 +61,7 @@ const googlelogin = async (req, res) => {
                 user_name: user.user_name,
                 email: user.email,
                 date_birth: user.date_birth,
-                token
+                token,
             })
         } else {
             return res.status(400).json({ error: "Invalid email" });
