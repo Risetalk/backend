@@ -1,5 +1,7 @@
 const Course = require("../../../../database/models/course.model");
 const User = require("../../../../database/models/user.model");
+const Lesson = require("../../../../database/models/lesson.model")
+const Video = require ("../../../../database/models/video.model")
 
 const postViewCourse = async (req, res) => {
   
@@ -35,12 +37,22 @@ const postViewCourse = async (req, res) => {
       });
 
     // Get the lesons of the course.
-    const lessons = await courseView.getLessons();
+    const lessons = await Lesson.findAll({
+      where: {
+        courseId,
+      },
+    });
 
     // Get the videos of the every lesson.
-    const videos = await lessons.map(async (lesson) => {
-      return await lesson.getVideos();
-    });
+    const videos = await Promise.all(
+      lessons.map(async (lesson) => {
+        return await Video.findAll({
+          where: {
+            lessonId: lesson.id,
+          },
+        });
+      })
+    );
 
     // Get the category of the course.
     const category = await courseView.getCategory();
@@ -68,11 +80,11 @@ const postViewCourse = async (req, res) => {
             return {
               title: lesson.title,
               description: lesson.description,
-              videos: videos[index].map((video) => {
+              videos: videos[index]?.map((video) => {
                 return {
                   title: video.title,
                   description: video.description,
-                  video_url: video.video_url,
+                  url_video: video.url_video,
                 };
               }),
             };

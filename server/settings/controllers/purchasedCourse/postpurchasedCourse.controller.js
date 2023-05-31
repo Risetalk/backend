@@ -9,6 +9,9 @@ const postpurchasedCourse = async (req, res) => {
     //Get user id and course id for the query.
     const { idUser, idCourse } = req.query;
 
+    console.log(idUser)
+    console.log(idCourse)
+
     try {
 
         // Search if the user exists.

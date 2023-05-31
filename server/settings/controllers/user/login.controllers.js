@@ -36,7 +36,8 @@ const login = async (req, res) => {
             user_name: user.user_name,
             email: user.email,
             date_birth: user.date_birth,
-            token
+            token,
+            profile_picture:user.profile_picture
         })
     } catch (error) {
         res.status(400).json({ error: error.message })
