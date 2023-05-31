@@ -101,3 +101,6 @@ const postViewCourse = async (req, res) => {
     });
   }
 };
+
+
+module.exports=postViewCourse;
