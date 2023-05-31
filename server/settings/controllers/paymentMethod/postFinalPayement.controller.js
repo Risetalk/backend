@@ -18,7 +18,7 @@ const paymentFinal = async (req, res) => {
             //Defines the type of currency
             currency: 'USD',
             //We place the price
-            amount: amount,
+            amount: amount * 100,
             //Automatic payment method enabled
             automatic_payment_methods: {
                 enabled: true,
