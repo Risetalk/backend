@@ -9,8 +9,11 @@
  *       required:
  *         - title
  *         - description
+ *         - language
  *         - background_image
  *         - price
+ *         - lessons
+ *         - categoryId
  * 
  *       properties:
  *         title:
@@ -25,6 +28,12 @@
  *           minLength: 1
  *           description: Descripción del curso.
  * 
+ *         language:
+ *           type: string
+ *           maxLength: 50
+ *           minLength: 1
+ *           description: Lenguaje del curso.
+ * 
  *         background_image:
  *           type: string
  *           maxLength: 500
@@ -35,11 +44,25 @@
  *           maxLength: 500    
  *           minLength: 1
  * 
+ *         lessons:
+ *           type: array
+ *           maxLength: 500
+ *           minLength: 1
+ *           description: Lecciones del curso.
+ * 
+ *         categoryId:
+ *           type: string
+ *           maxLength: 500
+ *           minLength: 1
+ *           description: Categoria del curso.
+ * 
  *       example:
  *         title: "Introduction to Programming"
  *         description: "Learn the basics of programming and start developing your own applications."
  *         background_image: "https://example.com/course_image.jpg"
  *         price: 29.99
+ *         lessons: ['12bi3by2b54i3u5b4i35b4o3b5o34', '43bi6by2b55i3u4b4i35b4o3b5o34']
+ *         categoryId: 'e1bi14b32ib4iu32b4i1b41i2ub41n4oi45'
  * 
  *     CoursePostResponse:
  *       type: object
@@ -223,3 +246,36 @@
  *           createdAt: "2023-05-15T02:12:19.693Z"
  *           video: 0
 */
+
+
+// Post View Course Route.
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     postViewCourse:
+ *       type: object
+ *       required:
+ *         - userId
+ *         - courseId
+ * 
+ *       properties:
+ *         userId:
+ *           type: string
+ *           maxLength: 50
+ *           minLength: 1
+ *           description: Nombre del curso.
+ *  
+ *         courseId:
+ *           type: string
+ *           maxLength: 500
+ *           minLength: 1
+ *           description: Descripción del curso.
+ * 
+ * 
+ *       example:
+ *         userId: "12bi3by2b54i3u5b4i35b4o3b5o34"
+ *         courseId: "43bi6by2b55i3u4b4i35b4o3b5o34"
+ *         
+ * 
+ * */
