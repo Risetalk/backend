@@ -14,13 +14,13 @@ const User = sequelize.define(
       primaryKey: true,
     },
     first_name: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(),
     },
     last_name: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(),
     },
     user_name: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(),
       unique: true,
     },
     profile_picture: {
@@ -29,14 +29,19 @@ const User = sequelize.define(
       allowNull: true,
     },
     email: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(),
       validate: {
         isEmail: true,
       },
       unique: true,
     },
+    password: {
+      type: DataTypes.STRING(),
+      allowNull: false,
+    },
     date_birth: {
       type: DataTypes.DATEONLY,
+      allowNull: true,
     },
     is_tutor: {
       type: DataTypes.BOOLEAN,
@@ -56,6 +61,22 @@ const User = sequelize.define(
     about_me: {
       type: DataTypes.TEXT,
       defaultValue: "Your description here...",
+      allowNull: true,
+    },
+    token: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    createGoogle: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    accountConfirmed: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    customer_id: {
+      type: DataTypes.STRING,
       allowNull: true,
     },
   },
