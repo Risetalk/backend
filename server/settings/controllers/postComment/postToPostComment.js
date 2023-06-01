@@ -3,7 +3,7 @@ const postToPostComment = async (req,res)=>{
     try {
         //the data requested by body
         const {comment, userId, postId} = req.body;
-
+        
         //it is verified that this data exists
         if(!comment || !userId || !postId) return res.status(400).json({message: "some or all of the data sent by body does not exist. "})
 
