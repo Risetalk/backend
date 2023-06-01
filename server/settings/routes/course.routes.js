@@ -43,7 +43,7 @@ routesCourse.post("/", postCourse);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Course'
+ *               $ref: '#/components/schemas/CoursePost'
  * 
 */
 
@@ -72,7 +72,7 @@ routesCourse.post("/view-course", viewCourse);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Course'
+ *               $ref: '#/components/schemas/postViewCourse'
  * 
 */
 
@@ -87,12 +87,7 @@ routesCourse.get("/:id", courseById)
  *     summary: Search a Course by id.
  *     description: > 
  *       **This route will search a course by id.**
- *     requestBody:
- *       required: false
- *       content:
- *        application/json:
- *          
- * 
+ 
  *     responses:
  *       200:
  *         description: Success
@@ -115,11 +110,7 @@ routesCourse.get("/name", courseByName)
  *     summary: Search a Course by Name.
  *     description: > 
  *       **This route will search a course by name.**
- *     requestBody:
- *       required: false
- *       content:
- *        application/json:
- *          
+ *   
  * 
  *     responses:
  *       200:
@@ -154,12 +145,6 @@ routesCourse.get("/", allCourses);
  *         type: int
  *         required: true
  *         description: This is the page limit.
- * 
- *     requestBody:
- *       required: false
- *       content:
- *        application/json:
- *          
  * 
  *     responses:
  *       200:
