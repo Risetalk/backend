@@ -8,7 +8,7 @@ const getUserPost = async (req,res)=>{
         const allPost = await User.findAll({
             include: {
               model: Post,
-              attributes: ["title", "description", "background_image"], 
+              attributes: ["id", "title", "description", "background_image"], 
                include:[
                 {
                     model: Post_comment,
@@ -16,22 +16,25 @@ const getUserPost = async (req,res)=>{
                     include: [
                         {
                             model: User,
-                            attributes: ["id","first_name", "last_name"]
+                            attributes: ["id","first_name", "last_name", "profile_picture", "email"]
                         }
                     ]
                 }
                ]
             },
-            attributes: ["id", "first_name", "last_name", "profile_picture"] 
+            attributes: ["id","first_name", "last_name", "profile_picture", "email"]
           });
           //Mapped to display the data as requested
           let allDivPost = [];
           allPost.map((pos)=>{
             pos.dataValues.posts.map((val) =>{
                
-                allDivPost = [...allDivPost, {first_name: pos.dataValues.first_name,
+                allDivPost = [...allDivPost, {
+                    id: pos.dataValues.id,
+                    first_name: pos.dataValues.first_name,
                      last_name: pos.dataValues.last_name,
                      profile_picture: pos.dataValues.profile_picture,
+                     email: pos.dataValues.email,
                       post: val.dataValues}]
             })
            
