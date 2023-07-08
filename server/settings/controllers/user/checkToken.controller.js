@@ -5,24 +5,24 @@ dotenv.config();
 // Local Dependencies.
 const User = require("../../../../database/models/user.model");
 
-// Delete User Controller.
-const deleteUser = async (req, res) => {
+// Check Token Controller.
+const checkToken = async (req, res) => {
 
   try {
+    
+    // Get the data that comes in the request body.
+    const { token } = req.params;
 
-    // Get the data that comes in the request params.
-    const { id } = req.params;
-
-    // Check if id field is filled in.
-    if (!id) {
+    // Check if all the fields are filled in.
+    if (!token) {
       return res.status(412).json({
         status: 412,
-        message: "Id field is required",
+        message: "All fields are required",
       });
     }
 
-    // Get User data.
-    const user = await User.findByPk(id);
+    // Find the user in the database.
+    const user = await User.findOne({ where: { token } });
 
     // If the user does not exist, we return an error.
     if (!user) {
@@ -32,26 +32,19 @@ const deleteUser = async (req, res) => {
       });
     }
 
-    // Change the status of the user to false.
-    user.is_active = false;
-
-    // Save the user in the database.
-    await user.save();
-
     // Return a response.
     res.status(200).json({
       status: 200,
-      message: "User Account deleted successfully",
+      message: "Token correct",
     });
   } catch (error) {
-
     // Return a response.
     res.status(500).json({
       status: 500,
       message: error.message,
     });
-    
   }
 };
 
-module.exports = deleteUser;
+// Export Module.
+module.exports = checkToken;

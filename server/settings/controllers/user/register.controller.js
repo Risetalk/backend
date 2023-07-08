@@ -10,7 +10,7 @@ dotenv.config();
 
 
 // PostUser Controller
-const registroUser = async (req, res) => {
+const userRegister = async (req, res) => {
     try {
 
       // Get the data that comes in the request body
@@ -90,6 +90,7 @@ const registroUser = async (req, res) => {
         {
           status:201,
           message: "User created successfully",
+          data: user,
         }
       )
     } catch (error) {
@@ -107,4 +108,4 @@ const registroUser = async (req, res) => {
   
 
 
-module.exports = registroUser;
+module.exports = userRegister;

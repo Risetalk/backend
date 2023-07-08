@@ -13,12 +13,89 @@ const routesCourse = Router();
 
 // Post Course Route.
 routesCourse.post("/", postCourse);
+/**
+ * @openapi
+ * paths:
+ *   /courses:
+ *    post:
+ *     tags: [Courses]
+ *     summary: Create a new Course in the database.
+ *     description: > 
+ *       **This route will create a new course in the database.**
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: Id of the user who wants to create the course.
+ * 
+ * 
+ *     requestBody:
+ *       required: true
+ *       content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/CoursePost'
+ * 
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/CoursePost'
+ * 
+*/
 
+//This path returns all course data
 routesCourse.post("/view-course", viewCourse);
-
+/**
+ * @openapi
+ * paths:
+ *   /courses:
+ *    post:
+ *     tags: [Courses]
+ *     summary: Create a new Course in the database.
+ *     description: > 
+ *       **This path returns all course data.**
+ *     
+ *     requestBody:
+ *       required: true
+ *       content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/postViewCourse'
+ * 
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/postViewCourse'
+ * 
+*/
 
 // Get Course By Id
 routesCourse.get("/:id", courseById)
+/**
+ * @openapi
+ * paths:
+ *   /courses/{id}:
+ *    get:
+ *     tags: [Courses]
+ *     summary: Search a Course by id.
+ *     description: > 
+ *       **This route will search a course by id.**
+ 
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             
+ * 
+*/
 
 
 
@@ -27,17 +104,13 @@ routesCourse.get("/name", courseByName)
 /**
  * @openapi
  * paths:
- *   /courses/{title}:
+ *   /courses/{name}:
  *    get:
  *     tags: [Courses]
  *     summary: Search a Course by Name.
  *     description: > 
  *       **This route will search a course by name.**
- *     requestBody:
- *       required: true
- *       content:
- *        application/json:
- *          
+ *   
  * 
  *     responses:
  *       200:
@@ -50,6 +123,37 @@ routesCourse.get("/name", courseByName)
 
 // Get All Courses.
 routesCourse.get("/", allCourses);
+/**
+ * @openapi
+ * paths:
+ *   /courses:
+ *    get:
+ *     tags: [Courses]
+ *     summary: Bring the courses with paging.
+ *     description: > 
+ *       **This path returns the courses with the pagination.**
+ *     parameters:
+ * 
+ *       - in: query
+ *         name: page
+ *         type: int
+ *         required: true
+ *         description: This is the page number.
+ * 
+ *       - in: query
+ *         name: limit
+ *         type: int
+ *         required: true
+ *         description: This is the page limit.
+ * 
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             
+ * 
+*/
 
 
 module.exports = routesCourse;
